@@ -20,7 +20,7 @@ from .. import targets
 class PythonKit(product.Product):
     @classmethod
     def product_source_name(cls):
-        return "PythonKit"
+        return "pythonkit"
 
     @classmethod
     def is_build_script_impl_product(cls):
