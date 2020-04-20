@@ -24,10 +24,6 @@ class LLVM(product.Product):
         self.cmake_options.define(
             'LLVM_ENABLE_ASSERTIONS:BOOL', args.llvm_assertions)
 
-        # Add the cmake option for LLVM_TARGETS_TO_BUILD.
-        self.cmake_options.define(
-            'LLVM_TARGETS_TO_BUILD', args.llvm_targets_to_build)
-
         # Add the cmake options for vendors
         self.cmake_options.extend(self._compiler_vendor_flags)
 
