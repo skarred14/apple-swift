@@ -1494,6 +1494,15 @@ for host in "${ALL_HOSTS[@]}"; do
                 )
 
                 llvm_enable_projects=("clang")
+                llvm_enable_projects+=("libc")
+                llvm_enable_projects+=("libclc")
+                llvm_enable_projects+=("libunwind")
+                llvm_enable_projects+=("lld")
+                llvm_enable_projects+=("mlir")
+                llvm_enable_projects+=("openmp")
+                llvm_enable_projects+=("parallel-libs")
+                llvm_enable_projects+=("polly")
+                llvm_enable_projects+=("pstl")
 
                 if [[ ! "${SKIP_BUILD_COMPILER_RT}" && ! $(is_cross_tools_host ${host}) ]]; then
                     llvm_enable_projects+=("compiler-rt")
