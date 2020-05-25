@@ -4,6 +4,8 @@ add_swift_host_tool(lldb-moduleimport-test
 )
 target_link_libraries(lldb-moduleimport-test
                       PRIVATE
+                        clangTooling
+                        LLVMRemarks
                         swiftAST
                         swiftASTSectionImporter
                         swiftClangImporter
