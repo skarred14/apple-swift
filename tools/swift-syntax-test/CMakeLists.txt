@@ -6,6 +6,8 @@ add_swift_host_tool(swift-syntax-test
 )
 target_link_libraries(swift-syntax-test
                       PRIVATE
+                        clangTooling
+                        LLVMRemarks
                         swiftAST
                         swiftDriver
                         swiftFrontend

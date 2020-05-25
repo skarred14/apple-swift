@@ -4,6 +4,8 @@ add_swift_host_tool(sil-opt
 )
 target_link_libraries(sil-opt
                       PRIVATE
+                        clangTooling
+                        LLVMRemarks
                         swiftFrontend
                         swiftIRGen
                         swiftSIL
