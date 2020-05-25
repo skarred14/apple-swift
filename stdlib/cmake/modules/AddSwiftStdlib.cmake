@@ -1009,7 +1009,7 @@ function(_add_swift_target_library_single target name)
     # flags manually in add_swift_target_library instead, see there with
     # variable `swiftlib_link_flags_all`.
     if(SWIFTLIB_SINGLE_TARGET_LIBRARY)
-      set_target_properties("${target}" PROPERTIES NO_SONAME TRUE)
+      # set_target_properties("${target}" PROPERTIES NO_SONAME TRUE)
     endif()
     # Only set the install RPATH if the toolchain and stdlib will be in Termux
     # or some other native sysroot on Android.
