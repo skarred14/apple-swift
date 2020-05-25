@@ -7,5 +7,7 @@ add_swift_host_tool(swift-ast-script
 )
 target_link_libraries(swift-ast-script
                       PRIVATE
+                        clangTooling
+                        LLVMRemarks
                         swiftAST
                         swiftFrontendTool)

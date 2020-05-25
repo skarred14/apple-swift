@@ -3,6 +3,8 @@ add_swift_host_tool(sil-passpipeline-dumper
   SWIFT_COMPONENT tools
 )
 target_link_libraries(sil-passpipeline-dumper PRIVATE
+  clangTooling
+  LLVMRemarks
   swiftFrontend
   swiftIRGen
   swiftSILGen

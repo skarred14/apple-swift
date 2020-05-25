@@ -4,6 +4,8 @@ add_swift_host_tool(swift-refactor
 )
 target_link_libraries(swift-refactor
                       PRIVATE
+                        clangTooling
+                        LLVMRemarks
                         swiftDriver
                         swiftFrontend
                         swiftIDE)

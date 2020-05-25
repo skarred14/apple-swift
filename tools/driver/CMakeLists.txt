@@ -11,6 +11,8 @@ target_link_libraries(swift
                         swiftDriver
                         swiftFrontendTool
                         swiftSymbolGraphGen
+                        clangTooling
+                        LLVMRemarks
                         LLVMBitstreamReader)
 
 swift_create_post_build_symlink(swift
