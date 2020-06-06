@@ -1,6 +1,6 @@
 add_sourcekit_executable(sourcekitd-repl
   sourcekitd-repl.cpp
-  LLVM_LINK_COMPONENTS coverage lto
+  LLVM_LINK_COMPONENTS coverage lto support
 )
 if(SWIFT_SOURCEKIT_USE_INPROC_LIBRARY)
   target_link_libraries(sourcekitd-repl PRIVATE sourcekitdInProc)
