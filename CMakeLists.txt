@@ -996,15 +996,18 @@ if(SWIFT_BUILD_SYNTAXPARSERLIB OR SWIFT_BUILD_SOURCEKIT)
                           -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
                           -DCMAKE_CXX_COMPILER=${SWIFT_LIBDISPATCH_CXX_COMPILER}
                           -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+			  -DCMAKE_EXE_LINKER_FLAGS=${CMAKE_EXE_LINKER_FLAGS}
                           -DCMAKE_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}
                           -DCMAKE_INSTALL_LIBDIR=lib
                           -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                           -DCMAKE_LINKER=${CMAKE_LINKER}
+			  -DCMAKE_MODULE_LINKER_FLAGS=${CMAKE_MODULE_LINKER_FLAGS}
                           -DCMAKE_RANLIB=${CMAKE_RANLIB}
+			  -DCMAKE_SHARED_LINKER_FLAGS=${CMAKE_SHARED_LINKER_FLAGS}
                           -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
                           -DBUILD_SHARED_LIBS=YES
+			  -DBUILD_TESTING=NO
                           -DENABLE_SWIFT=NO
-                          -DENABLE_TESTING=NO
                         INSTALL_COMMAND
                           # NOTE(compnerd) provide a custom install command to
                           # ensure that we strip out the DESTDIR environment
