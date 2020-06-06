@@ -974,21 +974,34 @@ if(SWIFT_BUILD_SYNTAXPARSERLIB OR SWIFT_BUILD_SOURCEKIT)
                         SOURCE_DIR
                           "${SWIFT_PATH_TO_LIBDISPATCH_SOURCE}"
                         CMAKE_ARGS
+                          -DANDROID_NDK=${ANDROID_NDK}
                           -DCMAKE_AR=${CMAKE_AR}
+                          -DCMAKE_ANDROID_ARCH_ABI=${CMAKE_ANDROID_ARCH_ABI}
+                          -DCMAKE_ANDROID_STL_TYPE=${CMAKE_ANDROID_STL_TYPE}
                           -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
                           -DCMAKE_C_COMPILER=${SWIFT_LIBDISPATCH_C_COMPILER}
+			  -DCMAKE_C_COMPILER_TARGET=${CMAKE_C_COMPILER_TARGET}
                           -DCMAKE_C_FLAGS=${CMAKE_C_FLAGS}
+                          -DCMAKE_C_FLAGS_MINSIZEREL=${CMAKE_C_FLAGS_MINSIZEREL}
                           -DCMAKE_CXX_COMPILER=${SWIFT_LIBDISPATCH_CXX_COMPILER}
+			  -DCMAKE_CXX_COMPILER_TARGET=${CMAKE_CXX_COMPILER_TARGET}
                           -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+                          -DCMAKE_CXX_FLAGS_MINSIZEREL=${CMAKE_CXX_FLAGS_MINSIZEREL}
+                          -DCMAKE_EXE_LINKER_FLAGS=${CMAKE_EXE_LINKER_FLAGS}
                           -DCMAKE_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}
                           -DCMAKE_INSTALL_LIBDIR=lib
                           -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                           -DCMAKE_LINKER=${CMAKE_LINKER}
+                          -DCMAKE_MODULE_LINKER_FLAGS=${CMAKE_MODULE_LINKER_FLAGS}
                           -DCMAKE_RANLIB=${CMAKE_RANLIB}
+                          -DCMAKE_SHARED_LINKER_FLAGS=${CMAKE_SHARED_LINKER_FLAGS}
+			  -DCMAKE_SYSROOT=${CMAKE_SYSROOT}
+                          -DCMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}
+                          -DCMAKE_SYSTEM_VERSION=${CMAKE_SYSTEM_VERSION}
                           -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
                           -DBUILD_SHARED_LIBS=YES
+                          -DBUILD_TESTING=NO
                           -DENABLE_SWIFT=NO
-                          -DENABLE_TESTING=NO
                         INSTALL_COMMAND
                           # NOTE(compnerd) provide a custom install command to
                           # ensure that we strip out the DESTDIR environment
