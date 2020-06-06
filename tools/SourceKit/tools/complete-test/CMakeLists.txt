@@ -1,6 +1,6 @@
 add_sourcekit_executable(complete-test
   complete-test.cpp
-  LLVM_LINK_COMPONENTS option coverage lto
+  LLVM_LINK_COMPONENTS option coverage lto support
 )
 if(SWIFT_SOURCEKIT_USE_INPROC_LIBRARY)
   target_link_libraries(complete-test PRIVATE sourcekitdInProc)
