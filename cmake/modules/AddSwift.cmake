@@ -96,7 +96,7 @@ function(_add_host_variant_c_compile_link_flags name)
   if(SWIFT_SDK_${SWIFT_HOST_VARIANT_SDK}_USE_ISYSROOT)
     target_compile_options(${name} PRIVATE -isysroot;${_sysroot})
   elseif(NOT SWIFT_COMPILER_IS_MSVC_LIKE AND NOT "${_sysroot}" STREQUAL "/")
-    target_compile_options(${name} PRIVATE --sysroot=${_sysroot})
+#    target_compile_options(${name} PRIVATE --sysroot=${_sysroot})
   endif()
 
   if(SWIFT_HOST_VARIANT_SDK STREQUAL ANDROID)
