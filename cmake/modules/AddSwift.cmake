@@ -253,7 +253,6 @@ function(_add_host_variant_c_compile_flags target)
   endif()
 
   if(SWIFT_HOST_VARIANT_SDK STREQUAL ANDROID)
-    target_compile_options(${target} PRIVATE -nostdinc++)
     swift_android_libcxx_include_paths(CFLAGS_CXX_INCLUDES)
     swift_android_include_for_arch("${SWIFT_HOST_VARIANT_ARCH}"
       "${SWIFT_HOST_VARIANT_ARCH}_INCLUDE")
