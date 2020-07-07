@@ -49,12 +49,7 @@ using namespace llvm;
 
 using namespace sourcekitd_test;
 
-#if defined(_WIN32)
-namespace {
-int STDOUT_FILENO = _fileno(stdout);
-}
-#endif
-
+static bool sendGlobalConfigRequest();
 static int handleTestInvocation(ArrayRef<const char *> Args, TestOptions &InitOpts,
                                 bool IsFirstInvocation);
 static bool handleResponse(sourcekitd_response_t Resp, const TestOptions &Opts,

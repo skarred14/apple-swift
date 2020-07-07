@@ -35,12 +35,6 @@
 
 using namespace llvm;
 
-#if defined(_WIN32)
-namespace {
-int STDOUT_FILENO = _fileno(stdout);
-}
-#endif
-
 namespace {
 struct TestOptions {
   StringRef sourceFile;
