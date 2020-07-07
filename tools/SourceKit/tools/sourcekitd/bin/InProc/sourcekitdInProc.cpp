@@ -84,7 +84,7 @@ static void getToolchainPrefixPath(llvm::SmallVectorImpl<char> &Path) {
 #if defined(_WIN32)
   MEMORY_BASIC_INFORMATION mbi;
   char path[MAX_PATH + 1];
-  if (!VirtualQuery(static_cast<void *>(sourcekitd_initialize), &mbi,
+  if (!VirtualQuery(reinterpret_cast<void *>(sourcekitd_initialize), &mbi,
                     sizeof(mbi)))
     llvm_unreachable("call to VirtualQuery failed");
   if (!GetModuleFileNameA(static_cast<HINSTANCE>(mbi.AllocationBase), path,
