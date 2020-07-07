@@ -517,7 +517,7 @@ class _InterruptibleSleep {
   var completed: Bool = false
 
   init() {
-    self.event = CreateEventW(nil, true, false, nil)
+    self.event = CreateEventW(nil, 1, 0, nil)
     precondition(self.event != nil)
   }
 
@@ -536,7 +536,7 @@ class _InterruptibleSleep {
 
   func wake() {
     guard completed == false else { return }
-    let result: Bool = SetEvent(self.event)
+    let result: Bool = SetEvent(self.event) != 0
     precondition(result == true)
   }
 }
