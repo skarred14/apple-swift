@@ -25,7 +25,7 @@ if(("${SWIFT_HOST_VARIANT_SDK}" STREQUAL "${SWIFT_PRIMARY_VARIANT_SDK}") AND
       ${EXECINFO_LIBRARY}
       )
   elseif(SWIFT_HOST_VARIANT STREQUAL windows)
-    list(APPEND PLATFORM_TARGET_LINK_LIBRARIES DbgHelp)
+    list(APPEND PLATFORM_TARGET_LINK_LIBRARIES dbghelp)
   endif()
 
   add_swift_unittest(SwiftRuntimeLongTests

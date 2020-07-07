@@ -80,7 +80,7 @@ typedef unsigned long __swift_thread_key_t;
 // Windows has its own flavor of API.
 #  include <io.h>
 #  define WIN32_LEAN_AND_MEAN
-#  include <Windows.h>
+#  include <windows.h>
 
 #include <type_traits>
 
