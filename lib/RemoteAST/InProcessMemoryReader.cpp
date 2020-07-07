@@ -31,7 +31,7 @@ using namespace swift::remote;
 
 RemoteAddress InProcessMemoryReader::getSymbolAddress(const std::string &name) {
 #if defined(_WIN32)
-    auto pointer = GetProcAddress(GetModuleHandle(NULL), name.c_str());
+    auto pointer = (void *)GetProcAddress(GetModuleHandle(NULL), name.c_str());
 #else
     auto pointer = dlsym(RTLD_DEFAULT, name.c_str());
 #endif
