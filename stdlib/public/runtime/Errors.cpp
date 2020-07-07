@@ -42,7 +42,7 @@
 #include "swift/Demangling/Demangle.h"
 #include "llvm/ADT/StringRef.h"
 
-#if defined(_MSC_VER)
+#if defined(_WIN32)
 #include <dbghelp.h>
 #else
 #include <cxxabi.h>
