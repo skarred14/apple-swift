@@ -188,7 +188,6 @@ StringRef swift::getPlatformNameForTriple(const llvm::Triple &triple) {
     case llvm::Triple::Cygnus:
       return "cygwin";
     case llvm::Triple::GNU:
-      return "mingw";
     case llvm::Triple::MSVC:
     case llvm::Triple::Itanium:
       return "windows";
