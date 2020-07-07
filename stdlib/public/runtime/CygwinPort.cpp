@@ -32,6 +32,7 @@ using namespace swift;
 
 static std::mutex swiftOnceMutex;
 
+#ifdef __CYGWIN__
 void swift::_swift_once_f(uintptr_t *predicate, void *context,
                           void (*function)(void *)) {
   // FIXME: This implementation does a global lock, which is much worse than
@@ -46,4 +47,5 @@ void swift::_swift_once_f(uintptr_t *predicate, void *context,
   } else
     swiftOnceMutex.unlock();
 }
+#endif
 #endif // (defined(_WIN32) || defined(__CYGWIN__)) && !defined(_MSC_VER)
