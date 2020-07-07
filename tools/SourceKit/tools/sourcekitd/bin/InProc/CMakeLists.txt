@@ -36,6 +36,8 @@ else()
   )
 endif()
 target_link_libraries(sourcekitdInProc PRIVATE
+  clangTooling
+  LLVMRemarks
   SourceKitSwiftLang
   sourcekitdAPI)
 
