@@ -368,12 +368,12 @@ public var SIG_HOLD: sighandler_t {
   return unsafeBitCast(2, to: sighandler_t.self)
 }
 #elseif os(Windows)
-public var SIG_DFL: _crt_signal_t? { return nil }
-public var SIG_IGN: _crt_signal_t {
-  return unsafeBitCast(1, to: _crt_signal_t.self)
+public var SIG_DFL: __p_sig_fn_t? { return nil }
+public var SIG_IGN: __p_sig_fn_t {
+  return unsafeBitCast(1, to: __p_sig_fn_t.self)
 }
-public var SIG_ERR: _crt_signal_t {
-  return unsafeBitCast(-1, to: _crt_signal_t.self)
+public var SIG_ERR: __p_sig_fn_t {
+  return unsafeBitCast(-1, to: __p_sig_fn_t.self)
 }
 #elseif os(WASI)
 // No signals support on WASI yet, see https://github.com/WebAssembly/WASI/issues/166.
