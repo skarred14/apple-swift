@@ -1806,7 +1806,7 @@ Compilation::Result Compilation::performSingleCommand(const Job *Cmd) {
   const char **argv = Argv.data();
 
   for (auto &envPair : Cmd->getExtraEnvironment()) {
-#if defined(_MSC_VER)
+#if defined(_WIN32)
     int envResult =_putenv_s(envPair.first, envPair.second);
 #else
     int envResult = setenv(envPair.first, envPair.second, /*replacing=*/true);
