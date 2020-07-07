@@ -10,8 +10,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-@_exported import ucrt
-@_exported import WinSDK // Clang module
+@_exported import mingw
+@_exported import win32
 
 // WinBase.h
 public var HANDLE_FLAG_INHERIT: DWORD {
@@ -81,8 +81,16 @@ public var WS_OVERLAPPEDWINDOW: UINT {
   UINT(WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX)
 }
 public var WS_POPUPWINDOW: UINT {
-  UINT(numericCast(WS_POPUP) | WS_BORDER | WS_SYSMENU)
+  UINT(WS_POPUP | WS_BORDER | WS_SYSMENU)
 }
+public let WS_OVERLAPPED = UINT(0x00000000)
+public let WS_CAPTION = UINT(0x00C00000)
+public let WS_THICKFRAME = UINT(0x00040000)
+public let WS_MINIMIZEBOX = UINT(0x00020000)
+public let WS_MAXIMIZEBOX = UINT(0x00010000)
+public let WS_POPUP = UINT(0x80000000)
+public let WS_BORDER = UINT(0x00800000)
+public let WS_SYSMENU = UINT(0x00080000)
 
 // fileapi.h
 public var INVALID_FILE_ATTRIBUTES: DWORD {
@@ -115,6 +123,7 @@ public var PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE: DWORD_PTR {
 }
 
 // windef.h
+public typealias DPI_AWARENESS_CONTEXT = OpaquePointer
 public var DPI_AWARENESS_CONTEXT_UNAWARE: DPI_AWARENESS_CONTEXT {
   DPI_AWARENESS_CONTEXT(bitPattern: -1)!
 }
