@@ -713,7 +713,7 @@ elseif("${SWIFT_HOST_VARIANT_SDK}" STREQUAL "WINDOWS")
   set(SWIFT_HOST_VARIANT "windows" CACHE STRING
       "Deployment OS for Swift host tools (the compiler) [windows].")
 
-  configure_sdk_windows("Windows" "msvc" "${SWIFT_HOST_VARIANT_ARCH}")
+  configure_sdk_windows("Windows" "gnu" "${SWIFT_HOST_VARIANT_ARCH}")
   set(SWIFT_PRIMARY_VARIANT_SDK_default  "${SWIFT_HOST_VARIANT_SDK}")
   set(SWIFT_PRIMARY_VARIANT_ARCH_default "${SWIFT_HOST_VARIANT_ARCH}")
 
@@ -806,7 +806,7 @@ if(swift_build_windows AND NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "Windows")
   if("${SWIFT_SDK_WINDOWS_ARCHITECTURES}" STREQUAL "")
     set(SWIFT_SDK_WINDOWS_ARCHITECTURES aarch64;armv7;i686;x86_64)
   endif()
-  configure_sdk_windows("Windows" "msvc" "${SWIFT_SDK_WINDOWS_ARCHITECTURES}")
+  configure_sdk_windows("Windows" "gnu" "${SWIFT_SDK_WINDOWS_ARCHITECTURES}")
 endif()
 
 # Should we cross-compile the standard library for WASI?
