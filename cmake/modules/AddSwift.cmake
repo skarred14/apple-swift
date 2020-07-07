@@ -500,7 +500,6 @@ function(add_swift_host_library name)
       # MSVC doesn't support -Xclang. We don't need to manually specify
       # the dependent libraries as `cl` does so.
       target_compile_options(${name} PRIVATE
-        "SHELL:-Xclang --dependent-lib=oldnames"
         # TODO(compnerd) handle /MT, /MTd
         "SHELL:-Xclang --dependent-lib=msvcrt$<$<CONFIG:Debug>:d>")
     endif()
@@ -593,7 +592,6 @@ function(add_swift_host_tool executable)
       # MSVC doesn't support -Xclang. We don't need to manually specify
       # the dependent libraries as `cl` does so.
       target_compile_options(${executable} PRIVATE
-        "SHELL:-Xclang --dependent-lib=oldnames"
         # TODO(compnerd) handle /MT, /MTd
         "SHELL:-Xclang --dependent-lib=msvcrt$<$<CONFIG:Debug>:d>")
     endif()
