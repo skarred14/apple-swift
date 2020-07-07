@@ -285,14 +285,6 @@ function(_add_host_variant_link_flags target)
   elseif(SWIFT_HOST_VARIANT_SDK STREQUAL CYGWIN)
     # No extra libraries required.
   elseif(SWIFT_HOST_VARIANT_SDK STREQUAL WINDOWS)
-    # We don't need to add -nostdlib using MSVC or clang-cl, as MSVC and
-    # clang-cl rely on auto-linking entirely.
-    if(NOT SWIFT_COMPILER_IS_MSVC_LIKE)
-      # NOTE: we do not use "/MD" or "/MDd" and select the runtime via linker
-      # options. This causes conflicts.
-      target_link_options(${target} PRIVATE
-        -nostdlib)
-    endif()
     swift_windows_lib_for_arch(${SWIFT_HOST_VARIANT_ARCH}
       ${SWIFT_HOST_VARIANT_ARCH}_LIB)
     target_link_directories(${target} PRIVATE
