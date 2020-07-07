@@ -24,7 +24,7 @@
 #include "llvm/Support/Signals.h"
 
 #define NOMINMAX
-#include <Windows.h>
+#include <windows.h>
 #include <psapi.h>
 
 #include "Default/Task.inc"
