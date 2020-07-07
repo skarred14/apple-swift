@@ -26,7 +26,7 @@
 #if defined(_WIN32) && !defined(__CYGWIN__)
 #include <errno.h>
 #include <io.h>
-typedef int mode_t;
+#include <sys/types.h>
 #else
 #include <semaphore.h>
 #include <sys/ioctl.h>
