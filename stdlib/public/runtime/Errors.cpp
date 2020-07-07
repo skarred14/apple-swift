@@ -43,7 +43,7 @@
 #include "llvm/ADT/StringRef.h"
 
 #if defined(_MSC_VER)
-#include <DbgHelp.h>
+#include <dbghelp.h>
 #else
 #include <cxxabi.h>
 #endif

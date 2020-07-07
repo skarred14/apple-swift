@@ -18,7 +18,7 @@
 #if defined(_WIN32) && !defined(__CYGWIN__)
 #include <io.h>
 #define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
+#include <windows.h>
 #endif
 
 #include <stdio.h>
