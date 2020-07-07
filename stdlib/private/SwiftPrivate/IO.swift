@@ -175,9 +175,9 @@ public struct _FDOutputStream : TextOutputStream {
       var dwOffset: DWORD = 0
       while dwOffset < dwLength {
         var dwBytesWritten: DWORD = 0
-        if !WriteFile(handle,
-                      UnsafeRawPointer(buffer.baseAddress! + Int(dwOffset)),
-                      dwLength - dwOffset, &dwBytesWritten, nil) {
+        if WriteFile(handle,
+                     UnsafeRawPointer(buffer.baseAddress! + Int(dwOffset)),
+                     dwLength - dwOffset, &dwBytesWritten, nil) == 0 {
           fatalError("WriteFile() failed")
         }
         dwOffset += dwBytesWritten
