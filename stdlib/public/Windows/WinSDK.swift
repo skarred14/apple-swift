@@ -10,7 +10,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-@_exported import WinSDK // Clang module
+@_exported import mingw
+@_exported import win32
 
 // WinBase.h
 public let HANDLE_FLAG_INHERIT: DWORD = 0x00000001
@@ -46,11 +47,19 @@ public let INVALID_SOCKET: SOCKET = SOCKET(bitPattern: -1)
 public let FIONBIO: Int32 = Int32(bitPattern: 0x8004667e)
 
 // WinUser.h
-public let CW_USEDEFAULT: Int32 = Int32(truncatingIfNeeded: 2147483648)
+public let CW_USEDEFAULT = UINT(0x80000000)
+public let WS_OVERLAPPED = UINT(0x00000000)
+public let WS_CAPTION = UINT(0x00C00000)
+public let WS_THICKFRAME = UINT(0x00040000)
+public let WS_MINIMIZEBOX = UINT(0x00020000)
+public let WS_MAXIMIZEBOX = UINT(0x00010000)
+public let WS_POPUP = UINT(0x80000000)
+public let WS_BORDER = UINT(0x00800000)
+public let WS_SYSMENU = UINT(0x00080000)
 public let WS_OVERLAPPEDWINDOW: UINT =
     UINT(WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX)
 public let WS_POPUPWINDOW: UINT =
-    UINT(Int32(WS_POPUP) | WS_BORDER | WS_SYSMENU)
+    UINT(WS_POPUP | WS_BORDER | WS_SYSMENU)
 
 // fileapi.h
 public let INVALID_FILE_ATTRIBUTES: DWORD = DWORD(bitPattern: -1)
@@ -79,6 +88,7 @@ public let UPDOWN_CLASSW: [WCHAR] = Array<WCHAR>("msctls_updown32".utf16)
 public let PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE: DWORD_PTR = 0x00020016
 
 // windef.h
+public typealias DPI_AWARENESS_CONTEXT = OpaquePointer
 public let DPI_AWARENESS_CONTEXT_UNAWARE: DPI_AWARENESS_CONTEXT =
     DPI_AWARENESS_CONTEXT(bitPattern: -1)!
 public let DPI_AWARENESS_CONTEXT_SYSTEM_AWARE: DPI_AWARENESS_CONTEXT =

@@ -10,8 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-@_exported import ucrt // Clang module
-@_exported import visualc // Clang module
+@_exported import mingw // Clang module
 
 @available(swift, deprecated: 3.0, message: "Please use 'Double.pi' or '.pi' to get the value of correct type and avoid casting.")
 public let M_PI = Double.pi
@@ -84,6 +83,6 @@ public let DBL_MIN = Double.leastNormalMagnitude
 @available(swift, deprecated: 3.0, message: "Please use 'Double.leastNonzeroMagnitude' or '.leastNonzeroMagnitude'.")
 public let DBL_TRUE_MIN = Double.leastNonzeroMagnitude
 
-public let M_LN2 = ucrt.M_LN2
-public let M_LOG10E = ucrt.M_LOG10E
-public let M_2_SQRTPI = ucrt.M_2_SQRTPI
+public let M_LN2 = mingw.M_LN2
+public let M_LOG10E = mingw.M_LOG10E
+public let M_2_SQRTPI = mingw.M_2_SQRTPI
