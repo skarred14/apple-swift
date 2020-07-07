@@ -174,7 +174,7 @@ public func open(
   _ oflag: Int32,
   _ mode: Int32
 ) -> Int32 {
-  return _swift_stdlib_open(path, oflag, mode)
+  return _swift_stdlib_open(path, oflag, mode_t(mode))
 }
 #else
 public func open(
