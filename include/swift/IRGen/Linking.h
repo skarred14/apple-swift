@@ -1237,7 +1237,7 @@ public:
 
     GV->setLinkage(IRL.Linkage);
     GV->setVisibility(IRL.Visibility);
-    if (Triple.isOSBinFormatCOFF() && !Triple.isOSCygMing())
+    if (Triple.isOSBinFormatCOFF() && !Triple.isWindowsCygwinEnvironment())
       GV->setDLLStorageClass(IRL.DLLStorage);
 
     // TODO: BFD and gold do not handle COMDATs properly

@@ -261,7 +261,7 @@ private:
                               Type::getVoidTy(M.getContext()), ObjectPtrTy)
             .getCallee());
     if (llvm::Triple(M.getTargetTriple()).isOSBinFormatCOFF() &&
-        !llvm::Triple(M.getTargetTriple()).isOSCygMing())
+        !llvm::Triple(M.getTargetTriple()).isWindowsCygwinEnvironment())
       if (auto *F = llvm::dyn_cast<llvm::Function>(CheckUnowned.get()))
         F->setDLLStorageClass(llvm::GlobalValue::DLLImportStorageClass);
     return CheckUnowned.get();
