@@ -329,16 +329,16 @@ static void addRuntimeLibraryFlags(const OutputInfo &OI,
   const OutputInfo::MSVCRuntime RT = OI.RuntimeVariant.getValue();
 
   Arguments.push_back("-autolink-library");
-  Arguments.push_back("oldnames");
+  Arguments.push_back("moldname");
 
   Arguments.push_back("-autolink-library");
   switch (RT) {
   case OutputInfo::MSVCRuntime::MultiThreaded:
-    Arguments.push_back("libcmt");
+    Arguments.push_back("msvcrt");
     break;
 
   case OutputInfo::MSVCRuntime::MultiThreadedDebug:
-    Arguments.push_back("libcmtd");
+    Arguments.push_back("msvcrt");
     break;
 
   case OutputInfo::MSVCRuntime::MultiThreadedDLL:
@@ -346,7 +346,7 @@ static void addRuntimeLibraryFlags(const OutputInfo &OI,
     break;
 
   case OutputInfo::MSVCRuntime::MultiThreadedDebugDLL:
-    Arguments.push_back("msvcrtd");
+    Arguments.push_back("msvcrt");
     break;
   }
 
