@@ -69,7 +69,7 @@ const IRLinkage IRLinkage::ExternalExport = {
 };
 
 bool swift::irgen::useDllStorage(const llvm::Triple &triple) {
-  return triple.isOSBinFormatCOFF() && !triple.isOSCygMing();
+  return triple.isOSBinFormatCOFF() && !triple.isWindowsCygwinEnvironment();
 }
 
 UniversalLinkageInfo::UniversalLinkageInfo(IRGenModule &IGM)
