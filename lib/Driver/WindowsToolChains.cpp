@@ -88,7 +88,7 @@ toolchains::Windows::constructInvocation(const DynamicLinkJobAction &job,
   // `-nostartfiles` as that limits the difference to just the
   // `-defaultlib:libcmt` which is passed unconditionally with the `clang`
   // driver rather than the `clang-cl` driver.
-  Arguments.push_back("-nostartfiles");
+  // Arguments.push_back("-nostartfiles");
 
   bool wantsStaticStdlib =
       context.Args.hasFlag(options::OPT_static_stdlib,
