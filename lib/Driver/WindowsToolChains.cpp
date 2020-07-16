@@ -106,6 +106,8 @@ toolchains::Windows::constructInvocation(const DynamicLinkJobAction &job,
                                                    getTriple().getArchName()));
   }
 
+  Arguments.push_back("-lswiftCore");
+
   SmallString<128> SharedResourceDirPath;
   getResourceDirPath(SharedResourceDirPath, context.Args, /*Shared=*/true);
 
