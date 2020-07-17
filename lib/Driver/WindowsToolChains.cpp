@@ -98,6 +98,14 @@ toolchains::Windows::constructInvocation(const DynamicLinkJobAction &job,
   getRuntimeLibraryPaths(RuntimeLibPaths, context.Args, context.OI.SDKPath,
                          /*Shared=*/!wantsStaticStdlib);
 
+  // Add any autolinking scripts to the arguments
+  for (const Job *Cmd : context.Inputs) {
+    auto &OutputInfo = Cmd->getOutput();
+    if (OutputInfo.getPrimaryOutputType() == file_types::TY_AutolinkFile)
+      Arguments.push_back(context.Args.MakeArgString(
+          Twine("@") + OutputInfo.getPrimaryOutputFilename()));
+  }
+
   for (auto path : RuntimeLibPaths) {
     Arguments.push_back("-L");
     // Since Windows has separate libraries per architecture, link against the
