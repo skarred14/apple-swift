@@ -45,6 +45,41 @@ std::string toolchains::Windows::sanitizerRuntimeLibName(StringRef Sanitizer,
 }
 
 ToolChain::InvocationInfo
+toolchains::Windows::constructInvocation(const InterpretJobAction &job,
+                                         const JobContext &context) const {
+  InvocationInfo II = ToolChain::constructInvocation(job, context);
+
+  SmallVector<std::string, 4> runtimeLibraryPaths;
+  getRuntimeLibraryPaths(runtimeLibraryPaths, context.Args, context.OI.SDKPath,
+                        /*Shared=*/true);
+
+  addPathEnvironmentVariableIfNeeded(II.ExtraEnvironment, "PATH",
+                                    ":", options::OPT_L, context.Args,
+                                    runtimeLibraryPaths);
+  return II;
+}
+
+ToolChain::InvocationInfo
+toolchains::Windows::constructInvocation(const AutolinkExtractJobAction &job,
+                                         const JobContext &context) const {
+  assert(context.Output.getPrimaryOutputType() == file_types::TY_AutolinkFile);
+
+  InvocationInfo II{"swift-autolink-extract"};
+  ArgStringList &Arguments = II.Arguments;
+  II.allowsResponseFiles = true;
+
+  addPrimaryInputsOfType(Arguments, context.Inputs, context.Args,
+                         file_types::TY_Object);
+  addInputsOfType(Arguments, context.InputActions, file_types::TY_Object);
+
+  Arguments.push_back("-o");
+  Arguments.push_back(
+      context.Args.MakeArgString(context.Output.getPrimaryOutputFilename()));
+
+  return II;
+}
+
+ToolChain::InvocationInfo
 toolchains::Windows::constructInvocation(const DynamicLinkJobAction &job,
                                          const JobContext &context) const {
   assert(context.Output.getPrimaryOutputType() == file_types::TY_Image &&
