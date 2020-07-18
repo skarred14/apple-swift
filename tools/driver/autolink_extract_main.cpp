@@ -34,6 +34,7 @@
 #include "llvm/Object/ELFObjectFile.h"
 #include "llvm/Object/COFF.h"
 #include "llvm/Object/COFFImportFile.h"
+#include "llvm/Object/WindowsResource.h"
 
 using namespace swift;
 using namespace llvm::opt;
@@ -160,6 +161,8 @@ static bool extractLinkerFlags(const llvm::object::Binary *Bin,
   } else if (auto *ObjectFile = llvm::dyn_cast<llvm::object::COFFObjectFile>(Bin)) {
     return extractLinkerFlagsFromObjectFile(ObjectFile, LinkerFlags, Instance);
   } else if (auto *Archive = llvm::dyn_cast<llvm::object::COFFImportFile>(Bin)) {
+    return false;
+  } else if (auto *Archive = llvm::dyn_cast<llvm::object::WindowsResource>(Bin)) {
     return false;
   } else if (auto *Archive = llvm::dyn_cast<llvm::object::Archive>(Bin)) {
     llvm::Error Error = llvm::Error::success();
