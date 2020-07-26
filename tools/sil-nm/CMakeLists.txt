@@ -4,8 +4,8 @@ add_swift_host_tool(sil-nm
 )
 target_link_libraries(sil-nm
                       PRIVATE
-                        clangTooling
-                        LLVMRemarks
+                        clang-cpp
+                        LLVM
                         swiftClangImporter
                         swiftDemangling
                         swiftFrontend

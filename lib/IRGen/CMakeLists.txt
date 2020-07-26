@@ -63,8 +63,7 @@ add_swift_host_library(swiftIRGen STATIC
     transformutils
 )
 target_link_libraries(swiftIRGen INTERFACE
-  clangCodeGen
-  clangAST)
+  clang-cpp)
 target_link_libraries(swiftIRGen PRIVATE
   swiftAST
   swiftLLVMPasses

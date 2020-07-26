@@ -11,9 +11,8 @@ target_link_libraries(swift-frontend
                         swiftDriver
                         swiftFrontendTool
                         swiftSymbolGraphGen
-                        clangTooling
-                        LLVMRemarks
-                        LLVMBitstreamReader)
+                        clang-cpp
+                        LLVM)
 
 swift_create_post_build_symlink(swift-frontend
   SOURCE "swift-frontend${CMAKE_EXECUTABLE_SUFFIX}"

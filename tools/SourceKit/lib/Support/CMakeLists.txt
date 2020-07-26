@@ -8,8 +8,7 @@ add_sourcekit_library(SourceKitSupport
 target_link_libraries(SourceKitSupport PRIVATE
   swiftBasic
   swiftSyntax
-  clangBasic
-  clangRewrite)
+  clang-cpp)
 if(NOT CMAKE_SYSTEM_NAME STREQUAL Darwin)
   target_link_libraries(SourceKitSupport INTERFACE
     dispatch
