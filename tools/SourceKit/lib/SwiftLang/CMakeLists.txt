@@ -24,6 +24,30 @@ add_sourcekit_library(SourceKitSwiftLang
       objcarcopts
       profiledata
 )
+if(CLANG_LINK_CLANG_DYLIB)
+  set(LIBS
+      clang-cpp)
+else()
+  set(LIBS
+      clangIndex
+      clangFormat
+      clangToolingCore
+      clangFrontendTool
+      clangFrontend
+      clangDriver
+      clangCodeGen
+      clangSerialization
+      clangParse
+      clangSema
+      clangAnalysis
+      clangEdit
+      clangRewriteFrontend
+      clangRewrite
+      clangLex
+      clangAST
+      clangAPINotes
+      clangBasic)
+endif()
 target_link_libraries(SourceKitSwiftLang PRIVATE
   SourceKitCore
   swiftDriver
@@ -44,22 +68,5 @@ target_link_libraries(SourceKitSwiftLang PRIVATE
   swiftOption
   libcmark_static
   # Clang dependencies.
-  clangIndex
-  clangFormat
-  clangToolingCore
-  clangFrontendTool
-  clangFrontend
-  clangDriver
-  clangCodeGen
-  clangSerialization
-  clangParse
-  clangSema
-  clangAnalysis
-  clangEdit
-  clangRewriteFrontend
-  clangRewrite
-  clangLex
-  clangAST
-  clangAPINotes
-  clangBasic)
+  ${LIBS})
 add_dependencies(SourceKitSwiftLang clang-tablegen-targets)

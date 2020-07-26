@@ -7,9 +7,16 @@ add_swift_host_library(swiftFrontendTool STATIC
 add_dependencies(swiftFrontendTool
   swift-syntax-generated-headers
   SwiftOptions)
+if(CLANG_LINK_CLANG_DYLIB)
+  set(LIBS
+      clang-cpp)
+else()
+  set(LIBS
+      clangAPINotes
+      clangBasic)
+endif()
 target_link_libraries(swiftFrontendTool INTERFACE
-  clangAPINotes
-  clangBasic)
+                      ${LIBS})
 target_link_libraries(swiftFrontendTool PRIVATE
     swiftClangImporter
     swiftDemangling

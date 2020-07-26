@@ -6,14 +6,29 @@ add_swift_host_tool(swift-frontend
   swift_symbolgraph_extract_main.cpp
   SWIFT_COMPONENT compiler
 )
+if(LLVM_LINK_LLVM_DYLIB)
+  set(LIBS
+      LLVM)
+else()
+  set(LIBS
+      LLVMRemarks
+      LLVMBitstreamReader)
+endif()
+if(CLANG_LINK_CLANG_DYLIB)
+  set(LIBS
+      ${LIBS}
+      clang-cpp)
+else()
+  set(LIBS
+      ${LIBS}
+      clangTooling)
+endif()
 target_link_libraries(swift-frontend
                       PRIVATE
                         swiftDriver
                         swiftFrontendTool
                         swiftSymbolGraphGen
-                        clangTooling
-                        LLVMRemarks
-                        LLVMBitstreamReader)
+			${LIBS})
 
 swift_create_post_build_symlink(swift-frontend
   SOURCE "swift-frontend${CMAKE_EXECUTABLE_SUFFIX}"

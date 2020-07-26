@@ -39,9 +39,23 @@ add_swift_unittest(SwiftBasicTests
 
 add_dependencies(SwiftBasicTests "${gyb_dependency_targets}")
 
+if(LLVM_LINK_LLVM_DYLIB)
+  set(LIBS
+      LLVM)
+else()
+  set(LIBS
+      LLVMTestingSupport)
+endif()
+if(CLANG_LINK_CLANG_DYLIB)
+  set(LIBS
+      ${LIBS}
+      clang-cpp)
+else()
+  set(LIBS
+      ${LIBS}
+      clangBasic)
+endif()
 target_link_libraries(SwiftBasicTests
   PRIVATE
   swiftBasic
-  clangBasic
-  LLVMTestingSupport
-  )
+  ${LIBS})

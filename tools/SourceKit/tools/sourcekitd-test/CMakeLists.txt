@@ -7,11 +7,18 @@ add_sourcekit_executable(sourcekitd-test
   TestOptions.cpp
   LLVM_LINK_COMPONENTS option coverage lto
 )
+if(CLANG_LINK_CLANG_DYLIB)
+  set(LIBS
+      clang-cpp)
+else()
+  set(LIBS
+      clangRewrite
+      clangLex
+      clangBasic)
+endif()
 target_link_libraries(sourcekitd-test PRIVATE
   SourceKitSupport
-  clangRewrite
-  clangLex
-  clangBasic)
+  ${LIBS})
 if(SWIFT_SOURCEKIT_USE_INPROC_LIBRARY)
   target_link_libraries(sourcekitd-test PRIVATE sourcekitdInProc)
 else()

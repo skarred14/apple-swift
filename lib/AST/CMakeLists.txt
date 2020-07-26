@@ -101,25 +101,32 @@ if(SWIFT_FORCE_OPTIMIZED_TYPECHECKER)
   endif()
 endif()
 if(NOT SWIFT_BUILD_ONLY_SYNTAXPARSERLIB)
+  if(CLANG_LINK_CLANG_DYLIB)
+    set(LIBS
+        clang-cpp)
+  else()
+    set(LIBS
+        clangCodeGen
+        clangIndex
+        clangFormat
+        clangToolingCore
+        clangFrontendTool
+        clangFrontend
+        clangDriver
+        clangSerialization
+        clangParse
+        clangSema
+        clangAnalysis
+        clangEdit
+        clangRewriteFrontend
+        clangRewrite
+        clangAST
+        clangLex
+        clangAPINotes
+        clangBasic)
+  endif()
   target_link_libraries(swiftAST INTERFACE
-    clangCodeGen
-    clangIndex
-    clangFormat
-    clangToolingCore
-    clangFrontendTool
-    clangFrontend
-    clangDriver
-    clangSerialization
-    clangParse
-    clangSema
-    clangAnalysis
-    clangEdit
-    clangRewriteFrontend
-    clangRewrite
-    clangAST
-    clangLex
-    clangAPINotes
-    clangBasic)
+                        ${LIBS})
 endif()
 
 target_link_libraries(swiftAST

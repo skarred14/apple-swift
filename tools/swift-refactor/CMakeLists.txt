@@ -2,10 +2,25 @@ add_swift_host_tool(swift-refactor
   swift-refactor.cpp
   SWIFT_COMPONENT tools
 )
+if(LLVM_LINK_LLVM_DYLIB)
+  set(LIBS
+      LLVM)
+else()
+  set(LIBS
+      LLVMRemarks)
+endif()
+if(CLANG_LINK_CLANG_DYLIB)
+  set(LIBS
+      ${LIBS}
+      clang-cpp)
+else()
+  set(LIBS
+      ${LIBS}
+      clangTooling)
+endif()
 target_link_libraries(swift-refactor
                       PRIVATE
-                        clangTooling
-                        LLVMRemarks
+		        ${LIBS}
                         swiftDriver
                         swiftFrontend
                         swiftIDE)
