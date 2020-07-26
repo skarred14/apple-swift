@@ -4,12 +4,10 @@ add_swift_host_tool(sil-llvm-gen
 )
 target_link_libraries(sil-llvm-gen
                       PRIVATE
-                        clangTooling
-                        LLVMRemarks
+                        LLVM
                         swiftFrontend
                         swiftIRGen
                         swiftSILGen
                         swiftSILOptimizer
                         # Clang libraries included to appease the linker on linux.
-                        clangBasic
-                        clangCodeGen)
+                        clang-cpp)

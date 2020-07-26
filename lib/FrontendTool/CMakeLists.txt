@@ -7,8 +7,7 @@ add_dependencies(swiftFrontendTool
   swift-syntax-generated-headers
   SwiftOptions)
 target_link_libraries(swiftFrontendTool INTERFACE
-  clangAPINotes
-  clangBasic)
+  clang-cpp)
 target_link_libraries(swiftFrontendTool PRIVATE
     swiftClangImporter
     swiftDemangling

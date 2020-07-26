@@ -44,22 +44,5 @@ target_link_libraries(SourceKitSwiftLang PRIVATE
   swiftOption
   libcmark_static
   # Clang dependencies.
-  clangIndex
-  clangFormat
-  clangToolingCore
-  clangFrontendTool
-  clangFrontend
-  clangDriver
-  clangCodeGen
-  clangSerialization
-  clangParse
-  clangSema
-  clangAnalysis
-  clangEdit
-  clangRewriteFrontend
-  clangRewrite
-  clangLex
-  clangAST
-  clangAPINotes
-  clangBasic)
+  clang-cpp)
 add_dependencies(SourceKitSwiftLang clang-tablegen-targets)

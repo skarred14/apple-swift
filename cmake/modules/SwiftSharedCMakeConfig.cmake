@@ -325,6 +325,6 @@ function(swift_common_llvm_config target)
     endif()
   else()
     # If Swift was not built standalone, dispatch to 'llvm_config()'.
-    llvm_config("${target}" ${ARGN})
+    llvm_config("${target}" ${ARGN} USE_SHARED)
   endif()
 endfunction()

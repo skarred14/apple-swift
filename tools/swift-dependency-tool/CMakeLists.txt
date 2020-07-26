@@ -4,7 +4,7 @@ add_swift_host_tool(swift-dependency-tool
 )
 target_link_libraries(swift-dependency-tool
                       PRIVATE
-                        clangTooling
+                        clang-cpp
                         swiftAST
                         swiftParse
                         swiftClangImporter)

@@ -99,39 +99,14 @@ if(SWIFT_FORCE_OPTIMIZED_TYPECHECKER)
 endif()
 if(NOT SWIFT_BUILD_ONLY_SYNTAXPARSERLIB)
   target_link_libraries(swiftAST INTERFACE
-    clangCodeGen
-    clangIndex
-    clangFormat
-    clangToolingCore
-    clangFrontendTool
-    clangFrontend
-    clangDriver
-    clangSerialization
-    clangParse
-    clangSema
-    clangAnalysis
-    clangEdit
-    clangRewriteFrontend
-    clangRewrite
-    clangAST
-    clangLex
-    clangAPINotes
-    clangBasic)
+    clang-cpp)
 endif()
 
 target_link_libraries(swiftAST
   PUBLIC swiftBasic
   PRIVATE swiftSyntax)
 if(SWIFT_BUILD_ONLY_SYNTAXPARSERLIB)
-  # Add clangBasic as a single direct dependency to avoid bringing along some
-  # llvm libraries that we don't need.
-  if("${SWIFT_HOST_VARIANT_SDK}" STREQUAL "WINDOWS")
-    target_link_libraries(swiftAST PRIVATE
-      "${LLVM_LIBRARY_OUTPUT_INTDIR}/clangBasic.lib")
-  else()
-    target_link_libraries(swiftAST PRIVATE
-      "${LLVM_LIBRARY_OUTPUT_INTDIR}/libclangBasic.a")
-  endif()
+  target_link_libraries(swiftAST PRIVATE clang-cpp)
   target_compile_definitions(swiftAST PRIVATE
     SWIFT_BUILD_ONLY_SYNTAXPARSERLIB=1)
 else()
