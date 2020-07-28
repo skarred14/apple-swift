@@ -284,7 +284,6 @@ foreach(sdk ${SWIFT_CONFIGURED_SDKS})
 ${libicu_i18n_a}
 ${libicu_uc_a}
 ${libicu_data_a}
--lstdc++
 -lm
 -Xlinker -export-dynamic
 -Xlinker --exclude-libs
