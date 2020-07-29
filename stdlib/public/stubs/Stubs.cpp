@@ -321,7 +321,7 @@ T _swift_strto(const char *nptr, char **endptr) {
 
 #if defined(NEED_SWIFT_STRTOD_L)
 static double swift_strtod_l(const char *nptr, char **endptr, locale_t loc) {
-#if defined(_WIN32)
+#if defined(MSVC)
   return _strtod_l(nptr, endptr, getCLocale());
 #elif defined(__CYGWIN__) || defined(__HAIKU__)
   return _swift_strto<double>(nptr, endptr);
@@ -333,7 +333,7 @@ static double swift_strtod_l(const char *nptr, char **endptr, locale_t loc) {
 
 #if defined(NEED_SWIFT_STRTOF_L)
 static float swift_strtof_l(const char *nptr, char **endptr, locale_t loc) {
-#if defined(_WIN32)
+#if defined(MSVC)
   return _strtof_l(nptr, endptr, getCLocale());
 #elif defined(__CYGWIN__) || defined(__HAIKU__)
   return _swift_strto<float>(nptr, endptr);
