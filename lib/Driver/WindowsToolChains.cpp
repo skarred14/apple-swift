@@ -174,7 +174,7 @@ toolchains::Windows::constructInvocation(const DynamicLinkJobAction &job,
   }
 
   if (!context.OI.SDKPath.empty()) {
-    Arguments.push_back("-I");
+    Arguments.push_back("--sysroot");
     Arguments.push_back(context.Args.MakeArgString(context.OI.SDKPath));
   }
 
