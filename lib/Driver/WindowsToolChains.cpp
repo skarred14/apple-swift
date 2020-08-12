@@ -236,22 +236,18 @@ toolchains::Windows::constructInvocation(const StaticLinkJobAction &job,
 
   ArgStringList Arguments;
 
-  const char *Linker = "link";
-  if (const Arg *A = context.Args.getLastArg(options::OPT_use_ld))
-    Linker = context.Args.MakeArgString(A->getValue());
+  // Configure the toolchain.
+  const char *AR = "ar";
+  Arguments.push_back("crs");
 
-  Arguments.push_back("/lib");
-  Arguments.push_back("-nologo");
+  Arguments.push_back(
+      context.Args.MakeArgString(context.Output.getPrimaryOutputFilename()));
 
   addPrimaryInputsOfType(Arguments, context.Inputs, context.Args,
                          file_types::TY_Object);
   addInputsOfType(Arguments, context.InputActions, file_types::TY_Object);
 
-  StringRef OutputFile = context.Output.getPrimaryOutputFilename();
-  Arguments.push_back(context.Args.MakeArgString(Twine("/OUT:") + OutputFile));
-
-  InvocationInfo II{Linker, Arguments};
-  II.allowsResponseFiles = true;
+  InvocationInfo II{AR, Arguments};
 
   return II;
 }
