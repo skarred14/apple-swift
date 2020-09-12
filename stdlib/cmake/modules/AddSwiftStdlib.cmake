@@ -278,7 +278,7 @@ function(_add_target_variant_c_compile_flags)
                        "-fcoverage-mapping")
   endif()
 
-  if((CFLAGS_ARCH STREQUAL "armv7" OR CFLAGS_ARCH STREQUAL "aarch64") AND
+  if((CFLAGS_ARCH STREQUAL "armv7" OR CFLAGS_ARCH STREQUAL "aarch64" OR CFLAGS_ARCH STREQUAL "i686" OR CFLAGS_ARCH STREQUAL "x86_64") AND
      (CFLAGS_SDK STREQUAL "LINUX" OR CFLAGS_SDK STREQUAL "ANDROID" OR CFLAGS_SDK STREQUAL "MUSL"))
      list(APPEND result -funwind-tables)
   endif()
