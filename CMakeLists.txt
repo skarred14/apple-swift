@@ -775,7 +775,7 @@ if(swift_build_android AND NOT "${SWIFT_HOST_VARIANT_SDK}" STREQUAL "ANDROID")
   endif()
 
   if("${SWIFT_SDK_ANDROID_ARCHITECTURES}" STREQUAL "")
-    set(SWIFT_SDK_ANDROID_ARCHITECTURES armv7;aarch64)
+    set(SWIFT_SDK_ANDROID_ARCHITECTURES armv7;aarch64;i686;x86_64)
   endif()
   configure_sdk_unix("Android" "${SWIFT_SDK_ANDROID_ARCHITECTURES}")
 endif()
