@@ -97,7 +97,7 @@ function(swift_android_cxx_libraries_for_arch arch libraries_var_name)
     list(APPEND link_libraries ${android_libcxx_path}/libc++abi.a
                                ${android_libcxx_path}/libc++_shared.so)
   elseif(NOT "${SWIFT_ANDROID_NATIVE_SYSROOT}" STREQUAL "")
-      list(APPEND link_libraries "${SWIFT_ANDROID_NATIVE_SYSROOT}/usr/lib/libc++_shared.so")
+      list(APPEND link_libraries "c++")
   else()
     message(SEND_ERROR "Couldn't set ${arch} libc++ libraries needed for Android")
   endif()
