@@ -39,10 +39,10 @@ SourceLoc ClangSourceBufferImporter::resolveSourceLocation(
   if (decomposedLoc.first.isInvalid())
     return loc;
 
-  auto buffer = clangSrcMgr.getBuffer(decomposedLoc.first);
+  auto buffer = clangSrcMgr.getBufferOrNone(decomposedLoc.first);
   unsigned mirrorID;
 
-  auto mirrorIter = mirroredBuffers.find(buffer);
+  auto mirrorIter = mirroredBuffers.find(buffer->getBufferIdentifier());
   if (mirrorIter != mirroredBuffers.end()) {
     mirrorID = mirrorIter->second;
   } else {
@@ -52,7 +52,7 @@ SourceLoc ClangSourceBufferImporter::resolveSourceLocation(
                                        /*RequiresNullTerminator=*/true)
     };
     mirrorID = swiftSourceManager.addNewSourceBuffer(std::move(mirrorBuffer));
-    mirroredBuffers[buffer] = mirrorID;
+    mirroredBuffers[buffer->getBufferIdentifier()] = mirrorID;
   }
   loc = swiftSourceManager.getLocForOffset(mirrorID, decomposedLoc.second);
 

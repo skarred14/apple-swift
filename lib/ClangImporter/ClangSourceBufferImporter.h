@@ -13,10 +13,10 @@
 #ifndef SWIFT_CLANGIMPORTER_CLANGSOURCEBUFFERIMPORTER_H
 #define SWIFT_CLANGIMPORTER_CLANGSOURCEBUFFERIMPORTER_H
 
+#include <map>
 #include "swift/Basic/LLVM.h"
 #include "swift/Basic/SourceLoc.h"
 #include "clang/Basic/SourceLocation.h"
-#include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/IntrusiveRefCntPtr.h"
 #include "llvm/ADT/SmallVector.h"
 
@@ -44,7 +44,7 @@ class ClangSourceBufferImporter {
   // IntrusiveRefCntPtr to stay a ref-counting pointer.
   SmallVector<llvm::IntrusiveRefCntPtr<const clang::SourceManager>, 4>
     sourceManagersWithDiagnostics;
-  llvm::DenseMap<const llvm::MemoryBuffer *, unsigned> mirroredBuffers;
+  std::map<const llvm::StringRef, unsigned> mirroredBuffers;
   SourceManager &swiftSourceManager;
 
 public:
