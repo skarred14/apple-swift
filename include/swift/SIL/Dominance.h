@@ -21,6 +21,34 @@
 #include "llvm/Support/GenericDomTree.h"
 #include "swift/SIL/CFG.h"
 
+namespace swift {
+  class CfgTraitsBase : public llvm::CfgTraitsBase {
+  public:
+    using ParentType = SILFunction;
+    using BlockRef = SILBasicBlock *;
+    using ValueRef = SILValue *;
+
+    static llvm::CfgBlockRef wrapRef(BlockRef block) {
+      return makeOpaque<llvm::CfgBlockRefTag>(block);
+    }
+    static llvm::CfgValueRef wrapRef(ValueRef block) {
+      return makeOpaque<llvm::CfgValueRefTag>(block);
+    }
+    static BlockRef unwrapRef(llvm::CfgBlockRef block) {
+      return static_cast<BlockRef>(getOpaque(block));
+    }
+    static ValueRef unwrapRef(llvm::CfgValueRef block) {
+      return static_cast<ValueRef>(getOpaque(block));
+    }
+  };
+  class CfgTraits : public llvm::CfgTraits<CfgTraitsBase, CfgTraits> {
+  };
+}
+
+template <> struct llvm::CfgTraitsFor<swift::SILBasicBlock> {
+  using CfgTraits = swift::CfgTraits;
+};
+
 extern template class llvm::DominatorTreeBase<swift::SILBasicBlock, false>;
 extern template class llvm::DominatorTreeBase<swift::SILBasicBlock, true>;
 extern template class llvm::DomTreeNodeBase<swift::SILBasicBlock>;
