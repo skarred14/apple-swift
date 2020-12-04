@@ -67,15 +67,21 @@ public typealias ThreadHandle = HANDLE
 #else
 public typealias ThreadHandle = pthread_t
 
-#if os(Linux) || os(Android)
-internal func _make_pthread_t() -> pthread_t {
-  return pthread_t()
+fileprivate extension Int {
+  static func makeHandle() -> Self {
+    return Self();
+  }
 }
-#else
-internal func _make_pthread_t() -> pthread_t? {
-  return nil
+fileprivate extension UInt {
+  static func makeHandle() -> Self {
+    return Self();
+  }
 }
-#endif
+fileprivate extension OpaquePointer {
+  static func makeHandle() -> Self? {
+    return nil
+  }
+}
 #endif
 
 /// Block-based wrapper for `pthread_create`.
@@ -99,7 +105,7 @@ public func _stdlib_thread_create_block<Argument, Result>(
     return (0, ThreadHandle(bitPattern: threadID))
   }
 #else
-  var threadID = _make_pthread_t()
+  var threadID = pthread_t.makeHandle()
   let result = pthread_create(&threadID, nil,
     { invokeBlockContext($0) }, contextAsVoidPointer)
   if result == 0 {
