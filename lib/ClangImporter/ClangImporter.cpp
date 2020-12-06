@@ -630,6 +630,13 @@ importer::getNormalInvocationArguments(
       });
     }
 
+    if (triple.isMusl()) {
+      // Many of the modern libc features are hidden behind feature macros _ALL_SOURCE.
+      invocationArgStrs.insert(invocationArgStrs.end(), {
+        "-D_ALL_SOURCE",
+      });
+    }
+
     if (triple.isOSWindows()) {
       switch (triple.getArch()) {
       default: llvm_unreachable("unsupported Windows architecture");
