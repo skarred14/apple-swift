@@ -310,11 +310,12 @@ function(_add_host_variant_c_compile_flags target)
   if((SWIFT_HOST_VARIANT_ARCH STREQUAL armv7 OR
       SWIFT_HOST_VARIANT_ARCH STREQUAL aarch64) AND
      (SWIFT_HOST_VARIANT_SDK STREQUAL LINUX OR
+      SWIFT_HOST_VARIANT_SDK STREQUAL MUSL OR
       SWIFT_HOST_VARIANT_SDK STREQUAL ANDROID))
     target_compile_options(${target} PRIVATE $<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:-funwind-tables>)
   endif()
 
-  if(SWIFT_HOST_VARIANT_SDK STREQUAL "LINUX")
+  if(SWIFT_HOST_VARIANT_SDK STREQUAL "LINUX" OR SWIFT_HOST_VARIANT_SDK STREQUAL "MUSL")
     if(SWIFT_HOST_VARIANT_ARCH STREQUAL x86_64)
       # this is the minimum architecture that supports 16 byte CAS, which is
       # necessary to avoid a dependency to libatomic
@@ -335,7 +336,7 @@ endfunction()
 function(_add_host_variant_link_flags target)
   _add_host_variant_c_compile_link_flags(${target})
 
-  if(SWIFT_HOST_VARIANT_SDK STREQUAL LINUX)
+  if(SWIFT_HOST_VARIANT_SDK STREQUAL LINUX OR SWIFT_HOST_VARIANT_SDK STREQUAL MUSL)
     target_link_libraries(${target} PRIVATE
       pthread
       dl)
@@ -523,7 +524,7 @@ function(add_swift_host_library name)
   if(SWIFT_HOST_VARIANT_SDK IN_LIST SWIFT_APPLE_PLATFORMS)
     set_target_properties(${name} PROPERTIES
       INSTALL_NAME_DIR "@rpath")
-  elseif(SWIFT_HOST_VARIANT_SDK STREQUAL LINUX)
+  elseif(SWIFT_HOST_VARIANT_SDK STREQUAL LINUX OR SWIFT_HOST_VARIANT_SDK STREQUAL MUSL)
     set_target_properties(${name} PROPERTIES
       INSTALL_RPATH "$ORIGIN")
   elseif(SWIFT_HOST_VARIANT_SDK STREQUAL CYGWIN)

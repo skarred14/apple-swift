@@ -127,6 +127,16 @@ class DarwinPlatform(Platform):
         return arch in sdk_archs
 
 
+class MuslPlatform(Platform):
+    @property
+    def uses_host_tests(self):
+        """
+        Check if this is a Darwin platform that needs a connected device
+        for tests.
+        """
+        return True
+
+
 class AndroidPlatform(Platform):
     @property
     def uses_host_tests(self):
@@ -196,6 +206,8 @@ class StdlibDeploymentTarget(object):
         "powerpc64le",
         "s390x"])
 
+    Musl = MuslPlatform("musl", archs=["armv7", "aarch64", "i686", "powerpc64", "powerpc64le", "x86_64"])
+
     FreeBSD = Platform("freebsd", archs=["x86_64"])
 
     OpenBSD = Platform("openbsd", archs=["amd64"])
@@ -216,6 +228,7 @@ class StdlibDeploymentTarget(object):
         AppleWatch, AppleWatchSimulator,
         Freestanding,
         Linux,
+        Musl,
         FreeBSD,
         OpenBSD,
         Cygwin,

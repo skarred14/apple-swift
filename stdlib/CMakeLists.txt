@@ -12,7 +12,7 @@ list(APPEND CMAKE_MODULE_PATH
 if("${SWIFT_HOST_VARIANT_SDK}" MATCHES "(OSX|IOS*|TVOS*|WATCHOS*)")
   # All Darwin platforms have ABI stability.
   set(SWIFT_STDLIB_STABLE_ABI_default TRUE)
-elseif("${SWIFT_HOST_VARIANT_SDK}" STREQUAL "LINUX")
+elseif("${SWIFT_HOST_VARIANT_SDK}" STREQUAL "LINUX" OR "${SWIFT_HOST_VARIANT_SDK}" STREQUAL "MUSL")
   # TODO(mracek): This should get turned off, as this is not an ABI stable platform.
   set(SWIFT_STDLIB_STABLE_ABI_default TRUE)
 elseif("${SWIFT_HOST_VARIANT_SDK}" STREQUAL "FREEBSD")

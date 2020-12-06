@@ -53,7 +53,7 @@ static inline int _swift_stdlib_fcntlPtr(int fd, int cmd, void* ptr) {
 #endif
 
 // Environment
-#if defined(__FreeBSD__) || defined(__OpenBSD__)
+#if defined(__FreeBSD__) || defined(__OpenBSD__) || (defined(__linux__) && !defined(__GLIBC__))
 static inline char * _Nullable * _Null_unspecified _swift_stdlib_getEnviron() {
   extern char **environ;
   return environ;

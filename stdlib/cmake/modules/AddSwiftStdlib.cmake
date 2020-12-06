@@ -279,11 +279,11 @@ function(_add_target_variant_c_compile_flags)
   endif()
 
   if((CFLAGS_ARCH STREQUAL "armv7" OR CFLAGS_ARCH STREQUAL "aarch64") AND
-     (CFLAGS_SDK STREQUAL "LINUX" OR CFLAGS_SDK STREQUAL "ANDROID"))
+     (CFLAGS_SDK STREQUAL "LINUX" OR CFLAGS_SDK STREQUAL "ANDROID" OR CFLAGS_SDK STREQUAL "MUSL"))
      list(APPEND result -funwind-tables)
   endif()
 
-  if("${CFLAGS_SDK}" STREQUAL "LINUX")
+  if("${CFLAGS_SDK}" STREQUAL "LINUX" OR "${CFLAGS_SDK}" STREQUAL "MUSL")
     if(${CFLAGS_ARCH} STREQUAL x86_64)
       # this is the minimum architecture that supports 16 byte CAS, which is necessary to avoid a dependency to libatomic
       # list(APPEND result "-march=core2")
@@ -356,7 +356,7 @@ function(_add_target_variant_link_flags)
     DEPLOYMENT_VERSION_WATCHOS "${LFLAGS_DEPLOYMENT_VERSION_WATCHOS}"
     RESULT_VAR_NAME result
     MACCATALYST_BUILD_FLAVOR  "${LFLAGS_MACCATALYST_BUILD_FLAVOR}")
-  if("${LFLAGS_SDK}" STREQUAL "LINUX")
+  if("${LFLAGS_SDK}" STREQUAL "LINUX" OR "${LFLAGS_SDK}" STREQUAL "MUSL")
     list(APPEND link_libraries "pthread" "dl")
     if("${SWIFT_HOST_VARIANT_ARCH}" MATCHES "armv6|armv7|i686")
       list(APPEND link_libraries PRIVATE "atomic")
@@ -966,7 +966,7 @@ function(_add_swift_target_library_single target name)
     set_target_properties("${target}"
       PROPERTIES
       INSTALL_NAME_DIR "${install_name_dir}")
-  elseif("${SWIFTLIB_SINGLE_SDK}" STREQUAL "LINUX")
+  elseif("${SWIFTLIB_SINGLE_SDK}" STREQUAL "LINUX" OR "${SWIFTLIB_SINGLE_SDK}" STREQUAL "MUSL")
     set_target_properties("${target}"
       PROPERTIES
       INSTALL_RPATH "$ORIGIN")
@@ -1729,7 +1729,7 @@ function(add_swift_target_library name)
     elseif(${sdk} STREQUAL OPENBSD)
       list(APPEND swiftlib_module_depends_flattened
            ${SWIFTLIB_SWIFT_MODULE_DEPENDS_OPENBSD})
-    elseif(${sdk} STREQUAL LINUX OR ${sdk} STREQUAL ANDROID)
+    elseif(${sdk} STREQUAL LINUX OR ${sdk} STREQUAL ANDROID OR ${sdk} STREQUAL MUSL)
       list(APPEND swiftlib_module_depends_flattened
            ${SWIFTLIB_SWIFT_MODULE_DEPENDS_LINUX})
     elseif(${sdk} STREQUAL CYGWIN)
@@ -1771,7 +1771,7 @@ function(add_swift_target_library name)
     elseif(${sdk} STREQUAL WATCHOS OR ${sdk} STREQUAL WATCHOS_SIMULATOR)
       list(APPEND swiftlib_swift_compile_flags_all
            ${SWIFTLIB_SWIFT_COMPILE_FLAGS_WATCHOS})
-    elseif(${sdk} STREQUAL LINUX)
+    elseif(${sdk} STREQUAL LINUX OR ${sdk} STREQUAL MUSL)
       list(APPEND swiftlib_swift_compile_flags_all
            ${SWIFTLIB_SWIFT_COMPILE_FLAGS_LINUX})
     elseif(${sdk} STREQUAL WINDOWS)
