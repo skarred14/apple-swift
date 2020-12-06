@@ -178,7 +178,7 @@ StringRef swift::getPlatformNameForTriple(const llvm::Triple &triple) {
   case llvm::Triple::WatchOS:
     return getPlatformNameForDarwin(getDarwinPlatformKind(triple));
   case llvm::Triple::Linux:
-    return triple.isAndroid() ? "android" : "linux";
+    return triple.isAndroid() ? "android" : triple.isMusl() ? "musl" : "linux";
   case llvm::Triple::FreeBSD:
     return "freebsd";
   case llvm::Triple::OpenBSD:

@@ -22,7 +22,7 @@ module SwiftGlibc [system] {
 % if CMAKE_SDK == "LINUX":
       link "m"
 % end
-% if CMAKE_SDK in ["LINUX", "FREEBSD", "CYGWIN"]:
+% if CMAKE_SDK in ["LINUX", "MUSL", "FREEBSD", "CYGWIN"]:
   link "pthread"
   // FIXME: util contains rarely used functions and not usually needed. Unfortunately
   // link directive doesn't work in the submodule yet.

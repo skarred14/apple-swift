@@ -2149,6 +2149,7 @@ public enum OSVersion : CustomStringConvertible {
   case tvOSSimulator
   case watchOSSimulator
   case linux
+  case musl
   case freeBSD
   case openBSD
   case android
@@ -2176,6 +2177,8 @@ public enum OSVersion : CustomStringConvertible {
       return "watchOSSimulator"
     case .linux:
       return "Linux"
+    case .musl:
+       return "Musl"
     case .freeBSD:
       return "FreeBSD"
     case .openBSD:
@@ -2224,6 +2227,8 @@ func _getOSVersion() -> OSVersion {
   return .watchOSSimulator
 #elseif os(Linux)
   return .linux
+#elseif os(Musl)
+  return .musl
 #elseif os(FreeBSD)
   return .freeBSD
 #elseif os(OpenBSD)

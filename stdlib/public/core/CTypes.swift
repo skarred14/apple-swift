@@ -79,7 +79,7 @@ public typealias CLongDouble = Double
 #elseif os(Windows)
 // On Windows, long double is always Double.
 public typealias CLongDouble = Double
-#elseif os(Linux)
+#elseif os(Linux) || os(Musl)
 // On Linux/x86, long double is Float80.
 // TODO: Fill in definitions for additional architectures as needed. IIRC
 // armv7 should map to Double, but arm64 and ppc64le should map to Float128,

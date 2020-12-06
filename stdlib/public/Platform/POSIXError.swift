@@ -263,7 +263,7 @@ public enum POSIXErrorCode : Int32 {
   // KERNEL.
 }
 
-#elseif os(Linux) || os(Android)
+#elseif os(Linux) || os(Musl) || os(Android)
 
 /// Enumeration describing POSIX error codes.
 public enum POSIXErrorCode : Int32 {

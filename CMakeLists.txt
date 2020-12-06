@@ -300,7 +300,7 @@ set(SWIFT_ANDROID_DEPLOY_DEVICE_PATH "" CACHE STRING
 # User-configurable ICU specific options for Android, FreeBSD, Linux, Haiku, and WASI.
 #
 
-foreach(sdk ANDROID;FREEBSD;LINUX;WINDOWS;HAIKU;WASI)
+foreach(sdk ANDROID;FREEBSD;LINUX;MUSL;WINDOWS;HAIKU;WASI)
   foreach(arch aarch64;armv6;armv7;i686;powerpc64;powerpc64le;s390x;wasm32;x86_64)
     set(SWIFT_${sdk}_${arch}_ICU_UC "" CACHE STRING
         "Path to a directory containing the icuuc library for ${sdk}")
@@ -735,6 +735,15 @@ if("${SWIFT_HOST_VARIANT_SDK}" STREQUAL "LINUX")
     set(SWIFT_PRIMARY_VARIANT_SDK_default  "${SWIFT_HOST_VARIANT_SDK}")
     set(SWIFT_PRIMARY_VARIANT_ARCH_default "${SWIFT_HOST_VARIANT_ARCH}")
   endif()
+
+elseif("${SWIFT_HOST_VARIANT_SDK}" STREQUAL "MUSL")
+
+  set(SWIFT_HOST_VARIANT "musl" CACHE STRING
+      "Deployment OS for Swift host tools (the compiler) [musl].")
+
+  configure_sdk_unix("Musl" "${SWIFT_HOST_VARIANT_ARCH}")
+  set(SWIFT_PRIMARY_VARIANT_SDK_default  "${SWIFT_HOST_VARIANT_SDK}")
+  set(SWIFT_PRIMARY_VARIANT_ARCH_default "${SWIFT_HOST_VARIANT_ARCH}")
 
 elseif("${SWIFT_HOST_VARIANT_SDK}" STREQUAL "FREEBSD")
 
