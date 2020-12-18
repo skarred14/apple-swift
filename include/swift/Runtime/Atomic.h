@@ -69,6 +69,12 @@ public:
 #if defined(_WIN64)
 #include <intrin.h>
 
+static inline unsigned char
+_InterlockedCompareExchange128(volatile __int64 *dest, __int64 xchg_high, __int64 xchg_low, __int64 *compare)
+{
+    return __sync_bool_compare_and_swap( (__int128 *)dest, *(__int128 *)compare, ((__int128)xchg_high << 64) | xchg_low );
+}
+
 /// MSVC's std::atomic uses an inline spin lock for 16-byte atomics,
 /// which is not only unnecessarily inefficient but also doubles the size
 /// of the atomic object.  We don't care about supporting ancient
