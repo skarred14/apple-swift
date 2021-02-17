@@ -60,23 +60,17 @@ foreach(sdk ${DISPATCH_SDKS})
     endif()
   endif()
   
-  if(sdk STREQUAL ANDROID)
-    set(SWIFT_LIBDISPATCH_COMPILER_CMAKE_ARGS)
-  else()
-    set(SWIFT_LIBDISPATCH_COMPILER_CMAKE_ARGS -DCMAKE_C_COMPILER=${SWIFT_LIBDISPATCH_C_COMPILER};-DCMAKE_CXX_COMPILER=${SWIFT_LIBDISPATCH_CXX_COMPILER})
-  endif()
+  set(SWIFT_LIBDISPATCH_COMPILER_CMAKE_ARGS -DCMAKE_C_COMPILER=${SWIFT_LIBDISPATCH_C_COMPILER};-DCMAKE_CXX_COMPILER=${SWIFT_LIBDISPATCH_CXX_COMPILER})
 
   foreach(arch ${ARCHS})
     set(LIBDISPATCH_VARIANT_NAME "libdispatch-${SWIFT_SDK_${sdk}_LIB_SUBDIR}-${arch}")
-
-    if(NOT sdk STREQUAL ANDROID)
-      set(SWIFT_LIBDISPATCH_SYSTEM_PROCESSOR  -DCMAKE_SYSTEM_PROCESSOR=${arch})
-    endif()
+    set(SWIFT_LIBDISPATCH_SYSTEM_PROCESSOR  -DCMAKE_SYSTEM_PROCESSOR=${arch})
 
     ExternalProject_Add("${LIBDISPATCH_VARIANT_NAME}"
                         SOURCE_DIR
                           "${SWIFT_PATH_TO_LIBDISPATCH_SOURCE}"
                         CMAKE_ARGS
+			  -DBUILD_TESTING=FALSE
                           -DCMAKE_AR=${CMAKE_AR}
                           -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
                           ${SWIFT_LIBDISPATCH_COMPILER_CMAKE_ARGS}
@@ -88,15 +82,11 @@ foreach(sdk ${DISPATCH_SDKS})
                           -DCMAKE_LINKER=${CMAKE_LINKER}
                           -DCMAKE_MT=${CMAKE_MT}
                           -DCMAKE_RANLIB=${CMAKE_RANLIB}
+                          -DCMAKE_SYSROOT=${CMAKE_SYSROOT}
+                          -DCMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}
                           -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
-                          -DCMAKE_SYSTEM_NAME=${SWIFT_SDK_${sdk}_NAME}
-                          ${SWIFT_LIBDISPATCH_SYSTEM_PROCESSOR}
-                          "-DCMAKE_ANDROID_NDK=${SWIFT_ANDROID_NDK_PATH}"
-                          -DCMAKE_ANDROID_ARCH_ABI=${SWIFT_SDK_ANDROID_ARCH_${arch}_ABI}
-                          -DCMAKE_ANDROID_API=${SWIFT_ANDROID_API_LEVEL}
                           -DBUILD_SHARED_LIBS=YES
                           -DENABLE_SWIFT=NO
-                          -DENABLE_TESTING=NO
                         INSTALL_COMMAND
                           # NOTE(compnerd) provide a custom install command to
                           # ensure that we strip out the DESTDIR environment
@@ -172,15 +162,12 @@ foreach(sdk ${DISPATCH_SDKS})
                             -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
                             -DCMAKE_LINKER=${CMAKE_LINKER}
                             -DCMAKE_RANLIB=${CMAKE_RANLIB}
+                            -DCMAKE_SYSROOT=${CMAKE_SYSROOT}
+                            -DCMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}
                             -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
-                            -DCMAKE_SYSTEM_NAME=${SWIFT_SDK_${sdk}_NAME}
                             ${SWIFT_LIBDISPATCH_SYSTEM_PROCESSOR}
-                            "-DCMAKE_ANDROID_NDK=${SWIFT_ANDROID_NDK_PATH}"
-                            -DCMAKE_ANDROID_ARCH_ABI=${SWIFT_SDK_ANDROID_ARCH_${arch}_ABI}
-                            -DCMAKE_ANDROID_API=${SWIFT_ANDROID_API_LEVEL}
                             -DBUILD_SHARED_LIBS=NO
                             -DENABLE_SWIFT=NO
-                            -DENABLE_TESTING=NO
                           INSTALL_COMMAND
                             # NOTE(compnerd) provide a custom install command to
                             # ensure that we strip out the DESTDIR environment
