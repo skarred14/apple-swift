@@ -70,7 +70,7 @@ foreach(sdk ${DISPATCH_SDKS})
                         SOURCE_DIR
                           "${SWIFT_PATH_TO_LIBDISPATCH_SOURCE}"
                         CMAKE_ARGS
-			  -DBUILD_TESTING=FALSE
+                          -DBUILD_TESTING=FALSE
                           -DCMAKE_AR=${CMAKE_AR}
                           -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
                           ${SWIFT_LIBDISPATCH_COMPILER_CMAKE_ARGS}
@@ -87,6 +87,8 @@ foreach(sdk ${DISPATCH_SDKS})
                           -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
                           -DBUILD_SHARED_LIBS=YES
                           -DENABLE_SWIFT=NO
+                          -DLibRT_INCLUDE_PATH=${LibRT_INCLUDE_PATH}
+                          -DLibRT_LIBRARIES=${LibRT_LIBRARIES}
                         INSTALL_COMMAND
                           # NOTE(compnerd) provide a custom install command to
                           # ensure that we strip out the DESTDIR environment
@@ -160,6 +162,7 @@ foreach(sdk ${DISPATCH_SDKS})
                           SOURCE_DIR
                             "${SWIFT_PATH_TO_LIBDISPATCH_SOURCE}"
                           CMAKE_ARGS
+                            -DBUILD_TESTING=FALSE
                             -DCMAKE_AR=${CMAKE_AR}
                             -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
                             ${SWIFT_LIBDISPATCH_COMPILER_CMAKE_ARGS}
@@ -176,6 +179,8 @@ foreach(sdk ${DISPATCH_SDKS})
                             ${SWIFT_LIBDISPATCH_SYSTEM_PROCESSOR}
                             -DBUILD_SHARED_LIBS=NO
                             -DENABLE_SWIFT=NO
+                            -DLibRT_INCLUDE_PATH=${LibRT_INCLUDE_PATH}
+                            -DLibRT_LIBRARIES=${LibRT_LIBRARIES}
                           INSTALL_COMMAND
                             # NOTE(compnerd) provide a custom install command to
                             # ensure that we strip out the DESTDIR environment
