@@ -204,7 +204,7 @@ IRGenModule::IRGenModule(IRGenerator &irgen,
                                             irgen.Opts,
                                             ModuleName, PrivateDiscriminator)),
       Module(*ClangCodeGen->GetModule()),
-      DataLayout(irgen.getClangDataLayout()),
+      DataLayout(irgen.getClangDataLayoutString()),
       Triple(irgen.getEffectiveClangTriple()), TargetMachine(std::move(target)),
       silConv(irgen.SIL), OutputFilename(OutputFilename),
       MainInputFilenameForDebugInfo(MainInputFilenameForDebugInfo),
@@ -1741,11 +1741,11 @@ llvm::Triple IRGenerator::getEffectiveClangTriple() {
   return llvm::Triple(CI->getTargetInfo().getTargetOpts().Triple);
 }
 
-const llvm::DataLayout &IRGenerator::getClangDataLayout() {
+const char *IRGenerator::getClangDataLayoutString() {
   return static_cast<ClangImporter *>(
              SIL.getASTContext().getClangModuleLoader())
       ->getTargetInfo()
-      .getDataLayout();
+      .getDataLayoutString();
   }
 
 TypeExpansionContext IRGenModule::getMaximalTypeExpansionContext() const {
