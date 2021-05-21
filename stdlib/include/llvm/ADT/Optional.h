@@ -16,6 +16,7 @@
 #define LLVM_ADT_OPTIONAL_H
 
 #include "llvm/ADT/None.h"
+#include "llvm/ADT/STLForwardCompat.h"
 #include "llvm/Support/Compiler.h"
 #include "llvm/Support/type_traits.h"
 #include <cassert>
@@ -29,8 +30,6 @@ namespace llvm {
 class raw_ostream;
 
 namespace optional_detail {
-
-struct in_place_t {};
 
 /// Storage for any type.
 template <typename T, bool = is_trivially_copyable<T>::value>
@@ -222,10 +221,10 @@ public:
   constexpr Optional() {}
   constexpr Optional(NoneType) {}
 
-  Optional(const T &y) : Storage(optional_detail::in_place_t{}, y) {}
+  Optional(const T &y) : Storage(llvm::in_place_t{}, y) {}
   Optional(const Optional &O) = default;
 
-  Optional(T &&y) : Storage(optional_detail::in_place_t{}, std::move(y)) {}
+  Optional(T &&y) : Storage(llvm::in_place_t{}, std::move(y)) {}
   Optional(Optional &&O) = default;
 
   Optional &operator=(T &&y) {
