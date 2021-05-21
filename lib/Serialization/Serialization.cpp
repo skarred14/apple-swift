@@ -5554,7 +5554,7 @@ void swift::serializeToBuffers(
   std::unique_ptr<llvm::MemoryBuffer> *moduleSourceInfoBuffer,
   const SILModule *M) {
 
-  assert(!StringRef::withNullAsEmpty(options.OutputPath).empty());
+  assert(!StringRef(options.OutputPath).empty());
   {
     FrontendStatsTracer tracer(getContext(DC).Stats,
                                "Serialization, swiftmodule, to buffer");
@@ -5575,7 +5575,7 @@ void swift::serializeToBuffers(
                         std::move(buf), options.OutputPath);
   }
 
-  if (!StringRef::withNullAsEmpty(options.DocOutputPath).empty()) {
+  if (!StringRef(options.DocOutputPath).empty()) {
     FrontendStatsTracer tracer(getContext(DC).Stats,
                                "Serialization, swiftdoc, to buffer");
     llvm::SmallString<1024> buf;
@@ -5592,7 +5592,7 @@ void swift::serializeToBuffers(
                            std::move(buf), options.DocOutputPath);
   }
 
-  if (!StringRef::withNullAsEmpty(options.SourceInfoOutputPath).empty()) {
+  if (!StringRef(options.SourceInfoOutputPath).empty()) {
     FrontendStatsTracer tracer(getContext(DC).Stats,
                                "Serialization, swiftsourceinfo, to buffer");
     llvm::SmallString<1024> buf;
@@ -5614,12 +5614,12 @@ void swift::serialize(ModuleOrSourceFile DC,
                       const SerializationOptions &options,
                       const SILModule *M,
                       const fine_grained_dependencies::SourceFileDepGraph *DG) {
-  assert(!StringRef::withNullAsEmpty(options.OutputPath).empty());
+  assert(!StringRef(options.OutputPath).empty());
 
   if (StringRef(options.OutputPath) == "-") {
     // Special-case writing to stdout.
     Serializer::writeToStream(llvm::outs(), DC, M, options, DG);
-    assert(StringRef::withNullAsEmpty(options.DocOutputPath).empty());
+    assert(StringRef(options.DocOutputPath).empty());
     return;
   }
 
@@ -5634,7 +5634,7 @@ void swift::serialize(ModuleOrSourceFile DC,
   if (hadError)
     return;
 
-  if (!StringRef::withNullAsEmpty(options.DocOutputPath).empty()) {
+  if (!StringRef(options.DocOutputPath).empty()) {
     (void)withOutputFile(getContext(DC).Diags,
                          options.DocOutputPath,
                          [&](raw_ostream &out) {
@@ -5645,7 +5645,7 @@ void swift::serialize(ModuleOrSourceFile DC,
     });
   }
 
-  if (!StringRef::withNullAsEmpty(options.SourceInfoOutputPath).empty()) {
+  if (!StringRef(options.SourceInfoOutputPath).empty()) {
     (void)withOutputFile(getContext(DC).Diags,
                          options.SourceInfoOutputPath,
                          [&](raw_ostream &out) {
