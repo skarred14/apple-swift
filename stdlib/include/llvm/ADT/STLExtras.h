@@ -60,15 +60,6 @@ using ValueOfRange = typename std::remove_reference<decltype(
 //     Extra additions to <type_traits>
 //===----------------------------------------------------------------------===//
 
-template <typename T>
-struct negation : std::integral_constant<bool, !bool(T::value)> {};
-
-template <typename...> struct conjunction : std::true_type {};
-template <typename B1> struct conjunction<B1> : B1 {};
-template <typename B1, typename... Bn>
-struct conjunction<B1, Bn...>
-    : std::conditional<bool(B1::value), conjunction<Bn...>, B1>::type {};
-
 template <typename T> struct make_const_ptr {
   using type =
       typename std::add_pointer<typename std::add_const<T>::type>::type;
