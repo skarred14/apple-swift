@@ -2101,7 +2101,7 @@ function(add_swift_target_library name)
       endif()
 
       set(lipo_target "${name}-${library_subdir}")
-      if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin" AND SWIFTLIB_SHARED)
+      if("${CMAKE_HOST_SYSTEM_NAME}" STREQUAL "Darwin" AND SWIFTLIB_SHARED)
         set(codesign_arg CODESIGN)
       endif()
       precondition(THIN_INPUT_TARGETS)
