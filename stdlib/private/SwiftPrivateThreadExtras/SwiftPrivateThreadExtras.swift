@@ -77,6 +77,11 @@ fileprivate extension UInt {
     return Self();
   }
 }
+fileprivate extension UnsafeMutablePointer {
+  static func makeHandle() -> Self? {
+    return nil
+  }
+}
 fileprivate extension OpaquePointer {
   static func makeHandle() -> Self? {
     return nil
