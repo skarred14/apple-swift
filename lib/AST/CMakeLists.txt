@@ -9,6 +9,32 @@ else()
   )
 endif()
 
+if(NOT SWIFT_BUILD_ONLY_SYNTAXPARSERLIB)
+  if(SWIFT_LINK_SHARED_CLANG)
+    set(SWIFTAST_CLANG_LINK_COMPONENTS clang-cpp)
+  else()
+    set(SWIFTAST_CLANG_LINK_COMPONENTS
+        clangCodeGen
+        clangIndex
+        clangFormat
+        clangToolingCore
+        clangFrontendTool
+        clangFrontend
+        clangDriver
+        clangSerialization
+        clangParse
+        clangSema
+        clangAnalysis
+        clangEdit
+        clangRewriteFrontend
+        clangRewrite
+        clangAST
+        clangLex
+        clangAPINotes
+        clangBasic)
+  endif()
+endif()
+
 add_swift_host_library(swiftAST STATIC
   AbstractSourceFileDepGraphFactory.cpp
   AccessNotes.cpp
@@ -96,33 +122,16 @@ add_swift_host_library(swiftAST STATIC
   ${SWIFTAST_LLVM_LINK_COMPONENTS}
   )
 
+target_link_libraries(swiftAST INTERFACE
+  ${SWIFTAST_CLANG_LINK_COMPONENTS}
+)
+
 if(SWIFT_FORCE_OPTIMIZED_TYPECHECKER)
   if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC OR CMAKE_CXX_SIMULATE_ID STREQUAL MSVC)
     target_compile_options(swiftAST PRIVATE /O2 /Ob2)
   else()
     target_compile_options(swiftAST PRIVATE -O3)
   endif()
-endif()
-if(NOT SWIFT_BUILD_ONLY_SYNTAXPARSERLIB)
-  target_link_libraries(swiftAST INTERFACE
-    clangCodeGen
-    clangIndex
-    clangFormat
-    clangToolingCore
-    clangFrontendTool
-    clangFrontend
-    clangDriver
-    clangSerialization
-    clangParse
-    clangSema
-    clangAnalysis
-    clangEdit
-    clangRewriteFrontend
-    clangRewrite
-    clangAST
-    clangLex
-    clangAPINotes
-    clangBasic)
 endif()
 
 target_link_libraries(swiftAST

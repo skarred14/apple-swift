@@ -3,6 +3,15 @@ set(SWIFT_GYB_FLAGS
 
 add_gyb_target(generated_sorted_cf_database
     SortedCFDatabase.def.gyb)
+if(SWIFT_LINK_SHARED_CLANG)
+  set(swiftClangImporter_CLANG_LINK_COMPONENTS
+      clang-cpp
+      LLVM)
+else()
+  set(swiftClangImporter_CLANG_LINK_COMPONENTS
+      LLVMBitstreamReader
+      clangDependencyScanning)
+endif()
 
 add_swift_host_library(swiftClangImporter STATIC
   CFTypeInfo.cpp
@@ -23,11 +32,7 @@ add_swift_host_library(swiftClangImporter STATIC
 target_link_libraries(swiftClangImporter PRIVATE
   swiftAST
   swiftParse
-  clangTooling
-  LLVMBitstreamReader)
-
-target_link_libraries(swiftClangImporter INTERFACE
-  clangDependencyScanning)
+  ${swiftClangImporter_CLANG_LINK_COMPONENTS})
 
 # This property is only set by calls to clang_tablegen. It will not be set on
 # standalone builds, so it can always be safely passed.
