@@ -8,6 +8,14 @@ target_link_libraries(swift-llvm-opt
                         # Swift libraries included to appease the linker on linux.
                         swiftSema
                         swiftAST
+                      )
+if(SWIFT_LINK_SHARED_CLANG)
+  target_link_libraries(swift-llvm-opt PRIVATE
+                        clang-cpp
+                        LLVM
+                        )
+else()
+  target_link_libraries(swift-llvm-opt PRIVATE
                         # Clang libraries included to appease the linker on linux.
                         clangBasic
                         clangCodeGen
@@ -18,3 +26,4 @@ target_link_libraries(swift-llvm-opt
                         LLVMScalarOpts
                         LLVMVectorize
                         )
+endif()

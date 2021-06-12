@@ -516,7 +516,11 @@ function(add_swift_host_library name)
   if (NOT ASHL_PURE_SWIFT)
     llvm_update_compile_flags(${name})
   endif()
-  swift_common_llvm_config(${name} ${ASHL_LLVM_LINK_COMPONENTS})
+  if (SWIFT_LINK_SHARED_CLANG)
+    target_link_libraries(${name} PRIVATE LLVM)
+  else()
+    swift_common_llvm_config(${name} ${ASHL_LLVM_LINK_COMPONENTS})
+  endif()
   set_output_directory(${name}
       BINARY_DIR ${SWIFT_RUNTIME_OUTPUT_INTDIR}
       LIBRARY_DIR ${SWIFT_LIBRARY_OUTPUT_INTDIR})
@@ -863,7 +867,11 @@ function(add_swift_host_tool executable)
   endif()
 
   llvm_update_compile_flags(${executable})
-  swift_common_llvm_config(${executable} ${ASHT_LLVM_LINK_COMPONENTS})
+  if (SWIFT_LINK_SHARED_CLANG)
+    target_link_libraries(${executable} PRIVATE LLVM)
+  else()
+    swift_common_llvm_config(${executable} ${ASHT_LLVM_LINK_COMPONENTS})
+  endif()
   set_output_directory(${executable}
     BINARY_DIR ${SWIFT_RUNTIME_OUTPUT_INTDIR}
     LIBRARY_DIR ${SWIFT_LIBRARY_OUTPUT_INTDIR})

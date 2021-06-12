@@ -1,3 +1,10 @@
+if(SWIFT_LINK_SHARED_CLANG)
+  set(swiftIRGen_CLANG_LINK_COMPONENTS clang-cpp)
+else()
+  set(swiftIRGen_CLANG_LINK_COMPONENTS
+      clangCodeGen
+      clangAST)
+endif()
 
 add_swift_host_library(swiftIRGen STATIC
   AllocStackHoisting.cpp
@@ -63,15 +70,13 @@ add_swift_host_library(swiftIRGen STATIC
     target
     transformutils
 )
-target_link_libraries(swiftIRGen INTERFACE
-  clangCodeGen
-  clangAST)
 target_link_libraries(swiftIRGen PRIVATE
   swiftAST
   swiftLLVMPasses
   swiftSIL
   swiftSILGen
   swiftSILOptimizer
-  swiftTBDGen)
+  swiftTBDGen
+  ${swiftIRGen_CLANG_LINK_COMPONENTS})
 
 set_swift_llvm_is_available(swiftIRGen)

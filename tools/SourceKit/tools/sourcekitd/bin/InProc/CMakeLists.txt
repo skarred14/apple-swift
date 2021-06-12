@@ -46,9 +46,19 @@ else()
     SHARED
   )
 endif()
+if(SWIFT_LINK_SHARED_CLANG)
+  target_link_libraries(sourcekitdInProc PRIVATE
+    clang-cpp
+    LLVM
+  )
+else()
+  target_link_libraries(sourcekitdInProc PRIVATE
+    clangTooling
+    LLVMRemarks
+  )
+endif()
+
 target_link_libraries(sourcekitdInProc PRIVATE
-  clangTooling
-  LLVMRemarks
   SourceKitSwiftLang
   sourcekitdAPI)
 

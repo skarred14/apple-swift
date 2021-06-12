@@ -13,8 +13,7 @@ set(driver_common_libs
                 swiftAPIDigester
                 swiftDriver
                 swiftFrontendTool
-                swiftSymbolGraphGen
-                LLVMBitstreamReader)
+                swiftSymbolGraphGen)
 
 # The swift-frontend tool
 
@@ -23,6 +22,11 @@ add_swift_host_tool(swift-frontend
   SWIFT_COMPONENT compiler
   HAS_LIBSWIFT
 )
+if(SWIFT_LINK_SHARED_CLANG)
+  target_link_libraries(swift-frontend PRIVATE LLVM)
+else()
+  target_link_libraries(swift-frontend PRIVATE LLVMBitstreamReader)
+endif()
 target_link_libraries(swift-frontend
                       PRIVATE
                         ${driver_common_libs}
