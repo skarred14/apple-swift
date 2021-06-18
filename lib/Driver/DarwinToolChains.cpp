@@ -796,7 +796,7 @@ toolchains::Darwin::constructInvocation(const StaticLinkJobAction &job,
          "Invalid linker output type.");
 
   // Configure the toolchain.
-  const char *LibTool = "libtool";
+  const char *LibTool = getenv("LIBTOOL") ?: "libtool";
 
   InvocationInfo II = {LibTool};
   ArgStringList &Arguments = II.Arguments;
