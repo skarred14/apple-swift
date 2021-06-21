@@ -13,6 +13,7 @@
 #ifndef SWIFT_AST_ASTWALKER_H
 #define SWIFT_AST_ASTWALKER_H
 
+#include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/PointerUnion.h"
 #include <utility>
 
