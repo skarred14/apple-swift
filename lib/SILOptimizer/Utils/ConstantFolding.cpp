@@ -249,18 +249,18 @@ constantFoldBinaryWithOverflow(BuiltinInst *BI, llvm::Intrinsic::ID ID,
       diagnose(BI->getModule().getASTContext(),
                Loc.getSourceLoc(),
                diag::arithmetic_operation_overflow,
-               LHSInt.toString(/*Radix*/ 10, Signed),
+               llvm::toString(LHSInt, /*Radix*/ 10, Signed),
                Operator,
-               RHSInt.toString(/*Radix*/ 10, Signed),
+               llvm::toString(RHSInt, /*Radix*/ 10, Signed),
                OpType).highlight(LHSRange).highlight(RHSRange);
     } else {
       // If we cannot get the type info in an expected way, describe the type.
       diagnose(BI->getModule().getASTContext(),
                Loc.getSourceLoc(),
                diag::arithmetic_operation_overflow_generic_type,
-               LHSInt.toString(/*Radix*/ 10, Signed),
+               llvm::toString(LHSInt, /*Radix*/ 10, Signed),
                Operator,
-               RHSInt.toString(/*Radix*/ 10, Signed),
+               llvm::toString(RHSInt, /*Radix*/ 10, Signed),
                Signed,
                LHSInt.getBitWidth()).highlight(LHSRange).highlight(RHSRange);
     }
@@ -573,9 +573,9 @@ constantFoldAndCheckDivision(BuiltinInst *BI, BuiltinValueKind ID,
     diagnose(M.getASTContext(),
              BI->getLoc().getSourceLoc(),
              diag::division_overflow,
-             NumVal.toString(/*Radix*/ 10, /*Signed*/true),
+             llvm::toString(NumVal, /*Radix*/ 10, /*Signed*/true),
              IsRem ? "%" : "/",
-             DenomVal.toString(/*Radix*/ 10, /*Signed*/true));
+             llvm::toString(DenomVal, /*Radix*/ 10, /*Signed*/true));
     ResultsInError = Optional<bool>(true);
     return nullptr;
   }
@@ -1366,7 +1366,7 @@ case BuiltinValueKind::id:
     if (VInt.isNegative() && ResultsInError.hasValue()) {
       diagnose(M.getASTContext(), BI->getLoc().getSourceLoc(),
                diag::wrong_non_negative_assumption,
-               VInt.toString(/*Radix*/ 10, /*Signed*/ true));
+               llvm::toString(VInt, /*Radix*/ 10, /*Signed*/ true));
       ResultsInError = Optional<bool>(true);
     }
     return V;

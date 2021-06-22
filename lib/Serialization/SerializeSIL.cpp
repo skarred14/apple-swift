@@ -1560,11 +1560,11 @@ void SILSerializer::writeSILInstruction(const SILInstruction &SI) {
     switch (SI.getKind()) {
     default: llvm_unreachable("Out of sync with parent switch");
     case SILInstructionKind::IntegerLiteralInst:
-      Str = cast<IntegerLiteralInst>(&SI)->getValue().toString(10, true);
+      Str = llvm::toString(cast<IntegerLiteralInst>(&SI)->getValue(), 10, true);
       Ty = cast<IntegerLiteralInst>(&SI)->getType();
       break;
     case SILInstructionKind::FloatLiteralInst:
-      Str = cast<FloatLiteralInst>(&SI)->getBits().toString(16,
+      Str = llvm::toString(cast<FloatLiteralInst>(&SI)->getBits(), 16,
                                                             /*Signed*/false);
       Ty = cast<FloatLiteralInst>(&SI)->getType();
       break;

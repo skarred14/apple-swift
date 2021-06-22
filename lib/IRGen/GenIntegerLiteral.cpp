@@ -181,7 +181,7 @@ ConstantIntegerLiteralMap::get(IRGenModule &IGM, APInt &&value) {
     new llvm::GlobalVariable(*IGM.getModule(), arrayTy, /*constant*/ true,
                              llvm::GlobalVariable::PrivateLinkage, initV,
                              IGM.EnableValueNames
-                               ? Twine("intliteral.") + value.toString(10, true)
+                               ? Twine("intliteral.") + llvm::toString(value, 10, true)
                                : "");
   globalArray->setUnnamedAddr(llvm::GlobalVariable::UnnamedAddr::Global);
 

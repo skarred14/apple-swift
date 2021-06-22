@@ -61,7 +61,7 @@ std::string CompilerInvocation::getPCHHash() const {
                            SILOpts.getPCHHashComponents(),
                            IRGenOpts.getPCHHashComponents());
 
-  return llvm::APInt(64, Code).toString(36, /*Signed=*/false);
+  return llvm::toString(llvm::APInt(64, Code), 36, /*Signed=*/false);
 }
 
 const PrimarySpecificPaths &

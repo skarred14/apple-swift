@@ -1348,7 +1348,7 @@ public:
   void visitFloatLiteralInst(FloatLiteralInst *FLI) {
     *this << FLI->getType() << ", 0x";
     APInt bits = FLI->getBits();
-    *this << bits.toString(16, /*Signed*/ false);
+    *this << llvm::toString(bits, 16, /*Signed*/ false);
     llvm::SmallString<12> decimal;
     FLI->getValue().toString(decimal);
     *this << " // " << decimal;

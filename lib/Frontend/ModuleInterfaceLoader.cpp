@@ -1554,7 +1554,7 @@ InterfaceSubContextDelegateImpl::getCacheHash(StringRef useInterfacePath) {
       // ensure that we compile all swift interface files with the option set.
       unsigned(genericSubInvocation.getSILOptions().EnableOSSAModules));
 
-  return llvm::APInt(64, H).toString(36, /*Signed=*/false);
+  return llvm::toString(llvm::APInt(64, H), 36, /*Signed=*/false);
 }
 
 std::error_code
