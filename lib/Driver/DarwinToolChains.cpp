@@ -680,13 +680,13 @@ toolchains::Darwin::constructInvocation(const DynamicLinkJobAction &job,
 
   // Configure the toolchain.
   // By default, use the system `ld` to link.
-  const char *LD = "ld";
+  const char *LD = getenv("LD") ?: "ld";
   if (const Arg *A = context.Args.getLastArg(options::OPT_tools_directory)) {
     StringRef toolchainPath(A->getValue());
 
     // If there is a 'ld' in the toolchain folder, use that instead.
     if (auto toolchainLD =
-            llvm::sys::findProgramByName("ld", {toolchainPath})) {
+            llvm::sys::findProgramByName(LD, {toolchainPath})) {
       LD = context.Args.MakeArgString(toolchainLD.get());
     }
   }
